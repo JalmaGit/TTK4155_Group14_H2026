@@ -25,6 +25,7 @@ $(BUILD_DIR):
 	mkdir $(BUILD_DIR)
 
 $(BUILD_DIR)/%.o: %.c | $(BUILD_DIR)
+	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(BUILD_DIR)/main.hex: $(OBJECT_FILES) | $(BUILD_DIR)
@@ -51,3 +52,11 @@ debug:
 	sleep 2
 	avr-gdb -tui -iex "target remote localhost:4242" $(BUILD_DIR)/a.out
 	killall -s 9 avarice	
+
+.PHONY: compiledb
+compiledb:
+	bear -- $(MAKE) clean $(BUILD_DIR)/main.hex
+
+.PHONY: fmt
+fmt:
+	clang-format -i $(SOURCE_FILES)

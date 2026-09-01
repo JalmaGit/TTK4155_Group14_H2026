@@ -29,7 +29,16 @@
 
     # Hardware debugging support.
     pkgs.openocd
+
+    # `bear -- make` to generate compile_commands.json
+    pkgs.bear
   ];
+
+  scripts.clangd.exec = ''
+    exec ${pkgs.clang-tools}/bin/clangd \
+    --query-driver="/nix/store/*-avr-gcc-wrapper-*/bin/avr-gcc,/nix/store/*-avr-gcc-*/bin/avr-gcc" \
+    "$@"
+  '';
 
   # See full reference at https://devenv.sh/reference/options/
 }
