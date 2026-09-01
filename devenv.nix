@@ -3,8 +3,7 @@
   lib,
   config,
   ...
-}:
-{
+}: {
   # devenv.sh/languages/
   languages = {
     c = {
@@ -21,9 +20,9 @@
     #pkgs.nrf5-sdk
 
     # AT90USB1287 and ATmega162: AVR programming, simulation, and runtime support.
-     pkgs.avrdude
-     pkgs.pkgsCross.avr.buildPackages.gcc
-     pkgs.pkgsCross.avr.buildPackages.binutils
+    pkgs.avrdude
+    pkgs.pkgsCross.avr.buildPackages.gcc
+    pkgs.pkgsCross.avr.buildPackages.binutils
     # pkgs.avrlibc
     # pkgs.avra
     # pkgs.simavr
@@ -34,4 +33,3 @@
 
   # See full reference at https://devenv.sh/reference/options/
 }
-
