@@ -98,6 +98,7 @@ fp-info-cache
 # Local project settings
 *.kicad_prl
 
+_restore_backup_*/
 __pycache__
 __pycache__/
 *__pycache__
