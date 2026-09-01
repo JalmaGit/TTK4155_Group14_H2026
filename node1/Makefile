@@ -1,5 +1,5 @@
 # List all source files to be compiled; separate with space
-SOURCE_FILES := src/main.c
+SOURCE_FILES := src/main.c src/lights.c
 
 # Set this flag to "yes" (no quotes) to use JTAG; otherwise ISP (SPI) is used
 PROGRAM_WITH_JTAG := yes
@@ -15,7 +15,10 @@ TARGET_CPU := atmega162
 TARGET_DEVICE := m162
 
 CC := avr-gcc
-CFLAGS := -O -std=c11 -mmcu=$(TARGET_CPU) -ggdb
+# custom addtions:
+# - add `include` folder
+# - add `#define F_CPU` to make it available everywhere sleep is used
+CFLAGS := -O -std=c11 -mmcu=$(TARGET_CPU) -ggdb -Iinclude -DF_CPU=4915200
 
 OBJECT_FILES = $(SOURCE_FILES:%.c=$(BUILD_DIR)/%.o)
 
@@ -59,4 +62,4 @@ compiledb:
 
 .PHONY: fmt
 fmt:
-	clang-format -i $(SOURCE_FILES)
+	clang-format -i $(SOURCE_FILES) $(wildcard include/*.h)
