@@ -1,0 +1,107 @@
+include("${CMAKE_CURRENT_LIST_DIR}/rule.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/file.cmake")
+
+set(bygger_mplab_project_default_library_list )
+
+# Handle files with suffix s, for group default-AVR-GCC
+if(bygger_mplab_project_default_default_AVR_GCC_FILE_TYPE_assemble)
+add_library(bygger_mplab_project_default_default_AVR_GCC_assemble OBJECT ${bygger_mplab_project_default_default_AVR_GCC_FILE_TYPE_assemble})
+    bygger_mplab_project_default_default_AVR_GCC_assemble_rule(bygger_mplab_project_default_default_AVR_GCC_assemble)
+    list(APPEND bygger_mplab_project_default_library_list "$<TARGET_OBJECTS:bygger_mplab_project_default_default_AVR_GCC_assemble>")
+
+endif()
+
+# Handle files with suffix S, for group default-AVR-GCC
+if(bygger_mplab_project_default_default_AVR_GCC_FILE_TYPE_assembleWithPreprocess)
+add_library(bygger_mplab_project_default_default_AVR_GCC_assembleWithPreprocess OBJECT ${bygger_mplab_project_default_default_AVR_GCC_FILE_TYPE_assembleWithPreprocess})
+    bygger_mplab_project_default_default_AVR_GCC_assembleWithPreprocess_rule(bygger_mplab_project_default_default_AVR_GCC_assembleWithPreprocess)
+    list(APPEND bygger_mplab_project_default_library_list "$<TARGET_OBJECTS:bygger_mplab_project_default_default_AVR_GCC_assembleWithPreprocess>")
+
+endif()
+
+# Handle files with suffix [cC], for group default-AVR-GCC
+if(bygger_mplab_project_default_default_AVR_GCC_FILE_TYPE_compile)
+add_library(bygger_mplab_project_default_default_AVR_GCC_compile OBJECT ${bygger_mplab_project_default_default_AVR_GCC_FILE_TYPE_compile})
+    bygger_mplab_project_default_default_AVR_GCC_compile_rule(bygger_mplab_project_default_default_AVR_GCC_compile)
+    list(APPEND bygger_mplab_project_default_library_list "$<TARGET_OBJECTS:bygger_mplab_project_default_default_AVR_GCC_compile>")
+
+endif()
+
+# Handle files with suffix cpp, for group default-AVR-GCC
+if(bygger_mplab_project_default_default_AVR_GCC_FILE_TYPE_compile_cpp)
+add_library(bygger_mplab_project_default_default_AVR_GCC_compile_cpp OBJECT ${bygger_mplab_project_default_default_AVR_GCC_FILE_TYPE_compile_cpp})
+    bygger_mplab_project_default_default_AVR_GCC_compile_cpp_rule(bygger_mplab_project_default_default_AVR_GCC_compile_cpp)
+    list(APPEND bygger_mplab_project_default_library_list "$<TARGET_OBJECTS:bygger_mplab_project_default_default_AVR_GCC_compile_cpp>")
+
+endif()
+
+# Handle files with suffix elf, for group default-AVR-GCC
+if(bygger_mplab_project_default_default_AVR_GCC_FILE_TYPE_objcopy_ihex)
+add_library(bygger_mplab_project_default_default_AVR_GCC_objcopy_ihex OBJECT ${bygger_mplab_project_default_default_AVR_GCC_FILE_TYPE_objcopy_ihex})
+    bygger_mplab_project_default_default_AVR_GCC_objcopy_ihex_rule(bygger_mplab_project_default_default_AVR_GCC_objcopy_ihex)
+    list(APPEND bygger_mplab_project_default_library_list "$<TARGET_OBJECTS:bygger_mplab_project_default_default_AVR_GCC_objcopy_ihex>")
+
+endif()
+
+# Handle files with suffix elf, for group default-AVR-GCC
+if(bygger_mplab_project_default_default_AVR_GCC_FILE_TYPE_objcopy_eep)
+add_library(bygger_mplab_project_default_default_AVR_GCC_objcopy_eep OBJECT ${bygger_mplab_project_default_default_AVR_GCC_FILE_TYPE_objcopy_eep})
+    bygger_mplab_project_default_default_AVR_GCC_objcopy_eep_rule(bygger_mplab_project_default_default_AVR_GCC_objcopy_eep)
+    list(APPEND bygger_mplab_project_default_library_list "$<TARGET_OBJECTS:bygger_mplab_project_default_default_AVR_GCC_objcopy_eep>")
+
+endif()
+
+# Handle files with suffix elf, for group default-AVR-GCC
+if(bygger_mplab_project_default_default_AVR_GCC_FILE_TYPE_objcopy_lss)
+add_library(bygger_mplab_project_default_default_AVR_GCC_objcopy_lss OBJECT ${bygger_mplab_project_default_default_AVR_GCC_FILE_TYPE_objcopy_lss})
+    bygger_mplab_project_default_default_AVR_GCC_objcopy_lss_rule(bygger_mplab_project_default_default_AVR_GCC_objcopy_lss)
+    list(APPEND bygger_mplab_project_default_library_list "$<TARGET_OBJECTS:bygger_mplab_project_default_default_AVR_GCC_objcopy_lss>")
+
+endif()
+
+# Handle files with suffix elf, for group default-AVR-GCC
+if(bygger_mplab_project_default_default_AVR_GCC_FILE_TYPE_objcopy_srec)
+add_library(bygger_mplab_project_default_default_AVR_GCC_objcopy_srec OBJECT ${bygger_mplab_project_default_default_AVR_GCC_FILE_TYPE_objcopy_srec})
+    bygger_mplab_project_default_default_AVR_GCC_objcopy_srec_rule(bygger_mplab_project_default_default_AVR_GCC_objcopy_srec)
+    list(APPEND bygger_mplab_project_default_library_list "$<TARGET_OBJECTS:bygger_mplab_project_default_default_AVR_GCC_objcopy_srec>")
+
+endif()
+
+# Handle files with suffix elf, for group default-AVR-GCC
+if(bygger_mplab_project_default_default_AVR_GCC_FILE_TYPE_objcopy_sig)
+add_library(bygger_mplab_project_default_default_AVR_GCC_objcopy_sig OBJECT ${bygger_mplab_project_default_default_AVR_GCC_FILE_TYPE_objcopy_sig})
+    bygger_mplab_project_default_default_AVR_GCC_objcopy_sig_rule(bygger_mplab_project_default_default_AVR_GCC_objcopy_sig)
+    list(APPEND bygger_mplab_project_default_library_list "$<TARGET_OBJECTS:bygger_mplab_project_default_default_AVR_GCC_objcopy_sig>")
+
+endif()
+
+# Handle files with suffix elf, for group default-AVR-GCC
+if(bygger_mplab_project_default_default_AVR_GCC_FILE_TYPE_objcopy_memusage)
+add_library(bygger_mplab_project_default_default_AVR_GCC_objcopy_memusage OBJECT ${bygger_mplab_project_default_default_AVR_GCC_FILE_TYPE_objcopy_memusage})
+    bygger_mplab_project_default_default_AVR_GCC_objcopy_memusage_rule(bygger_mplab_project_default_default_AVR_GCC_objcopy_memusage)
+    list(APPEND bygger_mplab_project_default_library_list "$<TARGET_OBJECTS:bygger_mplab_project_default_default_AVR_GCC_objcopy_memusage>")
+
+endif()
+
+
+# Main target for this project
+add_executable(bygger_mplab_project_default_image_NDyL8R7k ${bygger_mplab_project_default_library_list})
+
+set_target_properties(bygger_mplab_project_default_image_NDyL8R7k PROPERTIES
+    OUTPUT_NAME "default"
+    SUFFIX ".elf"
+    ADDITIONAL_CLEAN_FILES "${output_extensions}"
+    RUNTIME_OUTPUT_DIRECTORY "${bygger_mplab_project_default_output_dir}")
+target_link_libraries(bygger_mplab_project_default_image_NDyL8R7k PRIVATE ${bygger_mplab_project_default_default_AVR_GCC_FILE_TYPE_link})
+# Add the link options from the rule file.
+bygger_mplab_project_default_link_rule( bygger_mplab_project_default_image_NDyL8R7k)
+
+
+#Add objcopy steps
+bygger_mplab_project_default_objcopy_ihex_rule(bygger_mplab_project_default_image_NDyL8R7k)
+bygger_mplab_project_default_objcopy_eep_rule(bygger_mplab_project_default_image_NDyL8R7k)
+bygger_mplab_project_default_objcopy_lss_rule(bygger_mplab_project_default_image_NDyL8R7k)
+bygger_mplab_project_default_objcopy_srec_rule(bygger_mplab_project_default_image_NDyL8R7k)
+bygger_mplab_project_default_objcopy_sig_rule(bygger_mplab_project_default_image_NDyL8R7k)
+bygger_mplab_project_default_objcopy_memusage_rule(bygger_mplab_project_default_image_NDyL8R7k)
+
