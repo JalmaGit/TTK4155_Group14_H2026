@@ -1,10 +1,4 @@
 #include "uart.h"
-// System Oscillator clock frequency
-#define FOSC F_CPU
-// bits per second
-#define BAUD 9600
-// Table 70 in ATmega162 datasheet
-#define MYUBRR FOSC / 16 / BAUD - 1
 
 void USART_Init(unsigned int ubrr) {
   /* Set baud rate */

@@ -33,11 +33,18 @@ int main() {
   USART_Init(MYUBRR);
 
   while (1) {
+
     PORTA |= (1 << PA7); // Sets the output on PA7 to HIGH
     _delay_ms(500); // Wait for 500 milliseconds
 
+    unsigned char data = USART_Receive();
+    USART_Transmit(data);
+
     PORTA &= ~(1 << PA7); // Sets the output on PA7 to LOW
     _delay_ms(500); // Wait for 500 milliseconds
+
+    data = USART_Receive();
+    USART_Transmit(data);
   }
 }
 
