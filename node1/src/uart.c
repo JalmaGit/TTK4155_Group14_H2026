@@ -1,4 +1,5 @@
 #include "uart.h"
+#include <stdio.h>
 
 void USART_Init(unsigned int ubrr) {
   /* Set baud rate */
@@ -26,4 +27,20 @@ unsigned char USART_Receive(void) {
 
   /* Get and return received data from buffer */
   return UDR1;
+}
+
+int uart_putchar(char c, FILE *stream)
+{
+    if (c == '\n') {
+        USART_Transmit('\r');
+    }
+
+    USART_Transmit(c);
+
+    return 0;
+}
+
+int uart_getchar(FILE *stream)
+{
+    return USART_Receive();
 }

@@ -9,3 +9,8 @@ void status_light(uint8_t state) {
     clear_bit(PORTA, PA7);
   }
 }
+
+void status_light_init(void) {
+  set_bit(DDRA, PA7);
+  clear_bit(PORTA, PA7);
+}

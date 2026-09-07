@@ -1,50 +1,25 @@
 #include <avr/io.h>
 #include <util/delay.h>
+#include <stdio.h>
 
 #include "lights.h"
 #include "uart.h"
 
-int main() {
-  // // Pin A7 for Status LED
+#include <avr/io.h>
+#include <util/delay.h>
 
-  // // Set outputs
-  // DDRA = 0b10000000;
+#include "lights.h"
 
-  // USART_Init(MYUBRR);
+int main(void)
+{
+    status_light_init();
 
-  // status_light(1);
+    while (1) {
+        status_light(1);
+        _delay_ms(1000);
 
-  // while (1) {
-  //   USART_Transmit(USART_Receive());
-  //   /*USART_Transmit('a');*/
-  //   status_light(1);
-  //   //_delay_ms(500);
-
-  //   USART_Transmit(USART_Receive());
-  //   // USART_Transmit('b');
-  //   status_light(0);
-  //   //_delay_ms(500);
-
-
-  // ######################## Sindre Prøver C-kode ##########################
-
-  DDRA |= (1 << PA7); // Tells the Data Direction Register (DDRA) to set PA7 as an output
-
-  USART_Init(MYUBRR);
-
-  while (1) {
-
-    PORTA |= (1 << PA7); // Sets the output on PA7 to HIGH
-    _delay_ms(500); // Wait for 500 milliseconds
-
-    unsigned char data = USART_Receive();
-    USART_Transmit(data);
-
-    PORTA &= ~(1 << PA7); // Sets the output on PA7 to LOW
-    _delay_ms(500); // Wait for 500 milliseconds
-
-    data = USART_Receive();
-    USART_Transmit(data);
-  }
+        status_light(0);
+        _delay_ms(1000);
+    }
 }
 
