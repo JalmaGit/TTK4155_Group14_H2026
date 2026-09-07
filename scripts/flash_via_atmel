@@ -1,0 +1,1 @@
+avrdude -p m162 -c atmelice -U flash:w:../node1/build/main.hex:i
