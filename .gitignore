@@ -106,9 +106,12 @@ __pycache__/
 
 .DS_Store
 
+.devenv/
+
+*/compile_commands.json
+
+.cache/
+
 cmake/
 *cmake/
 cmake/*
-.devenv/
-*.devenv/
-.devenv/*
