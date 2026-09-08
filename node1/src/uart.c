@@ -9,6 +9,8 @@ void USART_Init(unsigned int ubrr) {
   UCSR1B = (1 << RXEN1) | (1 << TXEN1);
   /* Set frame format: 8data, 2stop bit */
   UCSR1C = (1 << URSEL1) | (1 << USBS1) | (3 << UCSZ10);
+
+  fdevopen(uart_putchar, uart_getchar);
 }
 
 void USART_Transmit(unsigned char data) {

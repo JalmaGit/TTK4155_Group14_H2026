@@ -12,14 +12,18 @@
 
 int main(void)
 {
-    status_light_init();
+    DDRA |= (1 << PA7);
+
+    USART_Init(MYUBRR);
+
+    printf("UART ready!\n");
 
     while (1) {
+        int c = getchar();
         status_light(1);
-        _delay_ms(1000);
-
+        putchar(c);
+        _delay_ms(100);
         status_light(0);
-        _delay_ms(1000);
     }
 }
 
