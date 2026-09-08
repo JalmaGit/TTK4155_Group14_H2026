@@ -16,9 +16,9 @@ If using the "challenge" address partitioning we get:
 - `ADC` from `0x1000 (0b0001 0000 0000 0000)` to `0x13FF (0b0001 0011 1111 1111)`.
 - `SRAM` from `0x1400 (0b0001 0100 0000 0000)` to `0x1FFF (0b0001 1111 1111 1111)`.
 
-Bit 11 HIGH (Bit 10 x) -> `SRAM`
-Bit 11 LOW && Bit 10 HIGH -> `SRAM`
-Bit 11 LOW && Bit 10 LOW -> `ADC`
+- `bit[11]` HIGH (`bit[10]` x) -> `SRAM`
+- `bit[11]` LOW && `bit[10]` HIGH -> `SRAM`
+- `bit[11]` LOW && `bit[10]` LOW -> `ADC`
 
 | `Bit[10]` | `Bit[11]` | Out |
 | --------------- | --------------- | --------------- |
@@ -33,23 +33,22 @@ So, `ADC` if `bit[10]` and `bit[11]` are LOW.
 With boolean logic:
 
 ```text
-ADC = !bit[10] * !bit[11]
-SRAM = !ADC
+SRAM = bit[10] OR bit[11]
+ADC = NOT SRAM
+
+SRAM = NOT bit[10] NAND NOT bit[11]
+ADC = NOT (NOT bit[10] NAND NOT bit[11])
 ```
 
-Which is simply just an inverted NAND.
+Fully expanded using only NAND gates:
 
-```
-ADC = NOT (bit[10] NAND bit[11])
-SRAM = NOT NOT (bit[10] NAND bit[11])
-```
-
-Simplified to only using `NAND` gates.
-
-```
-ADC =  (bit[10] NAND bit[11]) NAND (bit[10] NAND bit[11])
-SRAM = bit[10] NAND bit[11]
+```text
+A = bit[10] NAND bit[10]
+B = bit[11] NAND bit[11]
+SRAM = A NAND B
+ADC = SRAM NAND SRAM
 ```
 
-Note: a `not` is simply a `nand` with both inputs wired together,
-and a double `not` cancels.
+Requires `4` NAND gates.
+NOTE: If the chip select enables are active LOW,
+you can simply swap the `SRAM` and `ADC` outputs.
