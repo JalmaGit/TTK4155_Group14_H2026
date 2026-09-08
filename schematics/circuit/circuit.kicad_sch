@@ -67,7 +67,7 @@
 			(color 0 0 0 0)
 		)
 		(uuid "33c7b005-7cc5-4117-8f28-48c420e42bbb")
-		(property "Sheetname" "AVR ATmega162 MCU"
+		(property "Sheetname" "a"
 			(at 49.53 18.3384 0)
 			(show_name no)
 			(do_not_autoplace no)
