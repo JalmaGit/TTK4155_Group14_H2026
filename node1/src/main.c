@@ -1,9 +1,10 @@
-#include <avr/io.h>
-#include <stdio.h>
-#include <util/delay.h>
-
 #include "lights.h"
 #include "uart.h"
+#include "xmem.h"
+#include <avr/io.h>
+#include <stdio.h>
+#include <tests/sram_test.h>
+#include <util/delay.h>
 
 // System Oscillator clock frequency
 #define FOSC F_CPU
@@ -18,9 +19,12 @@ int main() {
   // Set outputs
   DDRA = 0b10000000;
 
+  xmem_init();
   uart_init(MY_UBRR);
 
   status_light(1);
+
+  SRAM_test();
 
   printf("\nHello world!\n");
   while (1) {

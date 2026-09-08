@@ -3,7 +3,7 @@
 #include <stdint.h>
 
 // Start address for the SRAM.
-#define EXT_MEM_START 0x1800
+#define EXT_MEM_START 0x1400
 
 void xmem_init(void);
 

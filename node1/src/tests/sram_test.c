@@ -1,9 +1,11 @@
+#include "tests/sram_test.h"
 #include "uart.h"
 #include <stdint.h>
 #include <stdlib.h>
 
 void SRAM_test(void) {
-  volatile char *ext_ram = (char *)0x1800; // Start address for the SRAM
+  // Start address for the SRAM, 0x1800 for `recommended`
+  volatile char *ext_ram = (char *)0x1800;
   uint16_t ext_ram_size = 0x800;
   uint16_t write_errors = 0;
   uint16_t retrieval_errors = 0;
