@@ -5,9 +5,6 @@
 #include "lights.h"
 #include "uart.h"
 
-#include <avr/io.h>
-#include <util/delay.h>
-
 #include "lights.h"
 
 int main(void)

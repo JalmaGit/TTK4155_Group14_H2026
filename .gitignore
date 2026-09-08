@@ -113,3 +113,16 @@ __pycache__/
 
 # VScode stuff
 .vscode
+
+_build/
+*_build/
+build-*/
+*build-*/
+build/
+*build/
+cmake-build-*/
+*cmake-build-*/
+cmake/
+*cmake/
+.clangd/
+*.clangd/
