@@ -109,4 +109,9 @@ __pycache__/
 .devenv/
 
 */compile_commands.json
+
 .cache/
+
+cmake/
+*cmake/
+cmake/*
