@@ -105,3 +105,10 @@ __pycache__/
 *__pycache__/
 
 .DS_Store
+
+cmake/
+*cmake/
+cmake/*
+.devenv/
+*.devenv/
+.devenv/*
