@@ -1,8 +1,0 @@
-/home/jalma/.config/nixpkgs/overlays
-/home/jalma/.config/nixpkgs/overlays.nix
-/home/jalma/GitHub/school/BodySlammers/.devenv/bootstrap/bootstrapLib.nix
-/home/jalma/GitHub/school/BodySlammers/.devenv/bootstrap/default.nix
-/home/jalma/GitHub/school/BodySlammers/.devenv/bootstrap/resolve-lock.nix
-/home/jalma/GitHub/school/BodySlammers/devenv.local.nix
-/home/jalma/GitHub/school/BodySlammers/devenv.lock
-/home/jalma/GitHub/school/BodySlammers/devenv.nix
