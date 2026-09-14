@@ -1,7 +1,6 @@
 #include "lights.h"
 #include "uart.h"
 #include "xmem.h"
-#include <avr/io.h>
 #include <tests/sram_test.h>
 #include <util/delay.h>
 
