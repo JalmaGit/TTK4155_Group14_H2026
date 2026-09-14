@@ -5,7 +5,8 @@
 
 void SRAM_test(void) {
   // Start address for the SRAM, 0x1800 for `recommended`
-  volatile char *ext_ram = (char *)0x1800;
+  // 0x1400 for `challenge`
+  volatile char *ext_ram = (char *)0x1400;
   uint16_t ext_ram_size = 0x800;
   uint16_t write_errors = 0;
   uint16_t retrieval_errors = 0;
