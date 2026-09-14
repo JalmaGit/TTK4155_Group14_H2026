@@ -5,4 +5,4 @@
 void adc_init(void);
 
 // TODO: Verify this is 8 bits.
-uint8_t adc_read(void);
+uint8_t adc_read(uint8_t channel);

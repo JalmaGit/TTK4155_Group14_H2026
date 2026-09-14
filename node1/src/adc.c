@@ -22,7 +22,7 @@ void adc_init(void) {
 }
 
 // TODO: Verify this is 8 bits.
-uint8_t adc_read(void) {
+uint8_t adc_read(uint8_t channel) {
   // TODO: Verify that ADC data can be read from arbitrary address between
   // 0x1000 and 0x13FF
   //
