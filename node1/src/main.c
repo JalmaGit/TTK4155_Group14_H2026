@@ -15,6 +15,8 @@ int main() {
   xmem_init();
   uart_init(MY_UBRR);
 
+  _delay_ms(1000);
+
   SRAM_test();
 
   while (1) {
