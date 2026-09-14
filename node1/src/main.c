@@ -1,3 +1,4 @@
+#include "adc.h"
 #include "lights.h"
 #include "uart.h"
 #include "xmem.h"
@@ -13,6 +14,7 @@
 
 int main() {
   xmem_init();
+  adc_init();
   uart_init(MY_UBRR);
 
   _delay_ms(1000);
