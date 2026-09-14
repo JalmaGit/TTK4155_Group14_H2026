@@ -4,6 +4,7 @@ SOURCE_FILES := src/main.c \
 								src/uart.c \
 								src/xmem.c \
 								src/adc.c \
+								src/user_io.c \
 								src/tests/sram_test.c
 
 # Set this flag to "yes" (no quotes) to use JTAG; otherwise ISP (SPI) is used

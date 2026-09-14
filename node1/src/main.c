@@ -1,6 +1,7 @@
 #include "adc.h"
 #include "lights.h"
 #include "uart.h"
+#include "user_io.h"
 #include "xmem.h"
 #include <tests/sram_test.h>
 #include <util/delay.h>
@@ -16,6 +17,8 @@ int main() {
   xmem_init();
   adc_init();
   uart_init(MY_UBRR);
+
+  joy_calibrate();
 
   _delay_ms(1000);
 
