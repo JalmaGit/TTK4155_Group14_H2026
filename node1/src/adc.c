@@ -4,37 +4,11 @@
 #include "xmem.h"
 
 void adc_init(void) {
-  // TODO: Figure out how data is to be read + timing details.
-  // TODO: Configure ADC Clock
-  // TODO: Connect Clock to ADC
-  //
-  // Connect MODE to LOW (GND?) -> 4-channel, single-ended conversion,
+  // The ADC may be wired for "output-only" operation:
+  // - Connect MODE to LOW (GND?) -> 4-channel, single-ended conversion,
   // Note Capacitors for stable reference (fig 8a)
-  //
-  // Conversions are initiated with a pulse to the !WR pin,
-  // and data is accessed from teh ADC's RAM with a pulse to the !RD pin.
-  //
-  // The ADC may be wired for "output-only" operation. (?)
-  //
-  // Remember use of volatile when using memory-mapped io.
-  //
-  // Configure a timer/counter (CTC or PWM) -> square waves within 0.5 MHz
-  // to 5.0 MHz.
-  // Use PD4 or PD5 for this.
-  //
-  // From Alternate Functions of Port D:
-  // PD4:
-  //  - TOSC1 (Timer Oscillator Pin 1)
-  //  - XCK0 (USART0 External Clock Input/Output)
-  //  - **OC3A** (Timer/Counter3 Output Compare A Match Output)
-  // PD5:
-  //  - TOSC2 (Timer Oscillator Pin 2)
-  //  - **OC1A** (Timer/Counter1 Output Compare A Match Output)
-  //    - DDD5 set (one) needed to serve output function
-  //    - Also the output pin for the PWM mode timer function
 
-  // TODO: Verify
-  // Set Pin to be output
+  // Set Pin PD5 to be output
   set_bit(DDRD, DDD5);
 
   // Toggle OC1A/OC1B on Compare Match
@@ -43,22 +17,19 @@ void adc_init(void) {
 
   // Configure Waveform Generation Mode.
   // CTC (TOP = OCRnA)
-  // WGM13 = 0
-  // WGM12 = 1
-  // WGM11 = 0
   // WGM10 = 0
-  clear_bit(TCCR1B, WGM13);
-  set_bit(TCCR1B, WGM12);
-  clear_bit(TCCR1A, WGM11);
+  // WGM11 = 0
+  // WGM12 = 1
+  // WGM13 = 0
   clear_bit(TCCR1A, WGM10);
+  clear_bit(TCCR1A, WGM11);
+  set_bit(TCCR1B, WGM12);
+  clear_bit(TCCR1B, WGM13);
 
   // Prescaler set to 1
   clear_bit(TCCR1B, CS12);
   clear_bit(TCCR1B, CS11);
   set_bit(TCCR1B, CS10);
-
-  // OCR1A
-  OCR1A = 1;
 
   // f_OC1A_PFC_PWM = f_clk_IO/(2*N*TOP)
   // N = 1, 8, 64, 256, 1024
@@ -67,19 +38,18 @@ void adc_init(void) {
   //
   // due to it toggles at each period, the freq is halfed,
   // and therefor OCR1A is set to 1 instead of 2.
-  //
-  //
-  //
-  // freq 1 MHz ->
-  // F_CPU = 4 915 200
-
-  // 4 915 200 / (2*1*3) = 819200
+  // OCR1A
+  OCR1A = 1;
 }
 
 // TODO: Verify this is 8 bits.
 uint8_t adc_read(uint8_t channel) {
+  // TODO: Figure out how data is to be read + timing details.
   // TODO: Verify that ADC data can be read from arbitrary address between
   // 0x1000 and 0x13FF
+  //
+  // Conversions are initiated with a pulse to the !WR pin,
+  // and data is accessed from teh ADC's RAM with a pulse to the !RD pin.
   //
   // Timings:
   // !RD Low Pulse Width min 100ns
