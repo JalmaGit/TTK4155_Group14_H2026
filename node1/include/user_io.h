@@ -5,6 +5,16 @@ typedef struct {
   float y;
 } vec2_t;
 
+typedef enum {
+  JOY_LEFT,
+  JOY_RIGHT,
+  JOY_UP,
+  JOY_DOWN,
+  JOY_NEUTRAL,
+} JoyDir;
+
 void joy_calibrate(void);
 
-vec2_t joy_read(void);
+vec2_t joy_read_vec(void);
+
+JoyDir joy_read_dir(void);
