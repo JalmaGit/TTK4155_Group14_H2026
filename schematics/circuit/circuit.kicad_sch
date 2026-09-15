@@ -109,6 +109,52 @@
 		)
 	)
 	(sheet
+		(at 134.62 19.05)
+		(size 20.32 34.29)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "3f3b99a5-7c20-4fe1-abb2-e3519edce8b4")
+		(property "Sheetname" "ADC"
+			(at 134.62 18.3384 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "ADC.kicad_sch"
+			(at 134.62 53.9246 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "circuit"
+				(path "/a0fbafcd-7e01-42a2-97f7-971c6d70f3e6"
+					(page "6")
+				)
+			)
+		)
+	)
+	(sheet
 		(at 17.78 19.05)
 		(size 29.21 34.29)
 		(exclude_from_sim no)

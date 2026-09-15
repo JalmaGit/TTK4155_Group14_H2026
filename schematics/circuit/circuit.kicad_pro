@@ -661,7 +661,7 @@
         "uuid": "a0fbafcd-7e01-42a2-97f7-971c6d70f3e6"
       }
     ],
-    "used_designators": "IC1-2,J1-2,SW1,R1-2,D1,C1-7,Y1,#PWR1-22,U1-4",
+    "used_designators": "RV1-4,IC1-2,J1-2,SW1,R1-3,D1,C1-16,Y1,#PWR1-38,U1-6",
     "variants": []
   },
   "sheets": [
@@ -684,6 +684,10 @@
     [
       "eb8b859e-93ab-4108-8a22-e66f0ddc3669",
       "Memory"
+    ],
+    [
+      "3f3b99a5-7c20-4fe1-abb2-e3519edce8b4",
+      "ADC"
     ]
   ],
   "text_variables": {},
