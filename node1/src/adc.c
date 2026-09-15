@@ -3,11 +3,7 @@
 #include "common.h"
 #include "xmem.h"
 
-void adc_init(void) {
-  // The ADC may be wired for "output-only" operation:
-  // - Connect MODE to LOW (GND?) -> 4-channel, single-ended conversion,
-  // Note Capacitors for stable reference (fig 8a)
-
+void configure_adc_clock(void) {
   // Set Pin PD5 to be output
   set_bit(DDRD, DDD5);
 
@@ -42,6 +38,13 @@ void adc_init(void) {
   OCR1A = 1;
 }
 
+void adc_init(void) {
+  // The ADC may be wired for "output-only" operation:
+  // - Connect MODE to LOW (GND?) -> 4-channel, single-ended conversion,
+  // Note Capacitors for stable reference (fig 8a)
+
+  configure_adc_clock();
+}
 // TODO: Verify this is 8 bits.
 uint8_t adc_read(uint8_t channel) {
   // TODO: Figure out how data is to be read + timing details.
