@@ -3,6 +3,7 @@
 #include "uart.h"
 #include "user_io.h"
 #include "xmem.h"
+#include <stdint.h>
 #include <tests/sram_test.h>
 #include <util/delay.h>
 
@@ -22,7 +23,26 @@ int main() {
 
   _delay_ms(1000);
 
-  SRAM_test();
+  // SRAM_test();
+
+  // printf("SRAM TEST DONE\n");
+
+  _delay_ms(1000);
+
+  // Try to get adc data
+  // uint8_t value = adc_read(1);
+  // printf("adc: %d", value);
+
+  while (1) {
+    uint8_t value = xmem_read(0x1000);
+    printf("pretend read from adc\n");
+    _delay_ms(2000);
+
+    // Read from memory again
+    value = xmem_read(0x1400);
+    printf("mem: %d\n", value);
+    _delay_ms(2000);
+  }
 
   while (1) {
     _delay_ms(500);
