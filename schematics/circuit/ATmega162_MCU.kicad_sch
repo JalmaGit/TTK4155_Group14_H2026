@@ -1933,6 +1933,16 @@
 	)
 	(wire
 		(pts
+			(xy 158.75 138.43) (xy 161.29 138.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2fccc3b7-c681-4636-806b-30106abc0a33")
+	)
+	(wire
+		(pts
 			(xy 76.2 58.42) (xy 76.2 57.15)
 		)
 		(stroke
@@ -2370,6 +2380,30 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+			)
+		)
+	)
+	(global_label "CLK{slash}PD5"
+		(shape input)
+		(at 161.29 138.43 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "429b71e0-e0a1-446d-8b15-a54313258461")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 172.9233 138.43 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 			)
 		)
 	)
