@@ -5,6 +5,7 @@
 #include <stdint.h>
 
 void send_command(uint8_t command);
+void send_data(uint8_t data);
 
 // Commands //
 

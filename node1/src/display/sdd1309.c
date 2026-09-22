@@ -3,7 +3,12 @@
 
 void send_command(uint8_t command) {
   // TODO: Implement
-  // Set D/C# LOW (?)
+  // Set D/C# LOW
+}
+
+void send_data(uint8_t data) {
+  // TODO: Implement
+  // SET D/C# HIGH
 }
 
 // Commands //
