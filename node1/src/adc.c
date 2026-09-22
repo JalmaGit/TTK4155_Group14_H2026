@@ -91,6 +91,8 @@ uint8_t adc_read_once(void) {
   // Wait at least 100ns for stable data (t_DV)
   _delay_us(1);
   uint8_t value = xmem_read(0x1000);
+  // Set RD HIGH to end the read
+  set_bit(RD_PORT, RD_PIN);
   return value;
 }
 
