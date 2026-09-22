@@ -2,7 +2,10 @@
 // from any address between 0x1000 and 0x13FF
 #include <stdint.h>
 
+// Start address for the ADC
+#define ADC_MEM_START 0x1000
+
+// Requires xmem to also have been initialized (to set SRE).
 void adc_init(void);
 
-// TODO: Verify this is 8 bits.
 uint8_t adc_read(uint8_t channel);
