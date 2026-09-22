@@ -67,7 +67,10 @@ void adc_init(void) {
   configure_adc_clock();
 }
 
-void adc_mem_read() { volatile char *ext_mem = (char *)ADC_MEM_START; }
+uint8_t adc_mem_read() {
+  volatile char *ext_mem = (char *)ADC_MEM_START;
+  return ext_mem[0];
+}
 
 // TODO: Verify that CS is constant inbetween reads.
 void adc_set_cs(void) { adc_mem_read(); }
@@ -90,7 +93,7 @@ uint8_t adc_read_once(void) {
   clear_bit(RD_PORT, RD_PIN);
   // Wait at least 100ns for stable data (t_DV)
   _delay_us(1);
-  uint8_t value = xmem_read(0x1000);
+  uint8_t value = adc_mem_read();
   // Set RD HIGH to end the read
   set_bit(RD_PORT, RD_PIN);
   return value;
