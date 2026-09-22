@@ -403,17 +403,17 @@ const unsigned char PROGMEM font4[95][4] = {
     {0b00001000, 0b00000100, 0b00001000, 0b00000100}, // ~
 };
 
-const unsigned char *get_glyph8_byte(unsigned char c, unsigned char col) {
+const unsigned char get_glyph8_byte(unsigned char c, unsigned char col) {
   int c_index = c - CONTROL_CHAR_OFFSET;
   return pgm_read_byte(&font8[c_index][col]);
 }
 
-const unsigned char *get_glyph5_byte(unsigned char c, unsigned char col) {
+const unsigned char get_glyph5_byte(unsigned char c, unsigned char col) {
   int c_index = c - CONTROL_CHAR_OFFSET;
   return pgm_read_byte(&font5[c_index][col]);
 }
 
-const unsigned char *get_glyph4_byte(unsigned char c, unsigned char col) {
+const unsigned char get_glyph4_byte(unsigned char c, unsigned char col) {
   int c_index = c - CONTROL_CHAR_OFFSET;
   return pgm_read_byte(&font4[c_index][col]);
 }
