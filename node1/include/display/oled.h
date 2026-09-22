@@ -10,6 +10,8 @@
 #define PAGES 8
 #define PAGE_SIZE 128
 
+// One page represents 8x128 bits/dots.
+
 void oled_init();
 
 void oled_reset();
