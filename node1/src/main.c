@@ -18,35 +18,30 @@ int main() {
   xmem_init();
   adc_init();
   uart_init(MY_UBRR);
-
-  joy_calibrate();
-
-  _delay_ms(1000);
-
-  // SRAM_test();
-
-  // printf("SRAM TEST DONE\n");
+  joy_calibrate(); // Joystick needs to be in neutral position
 
   _delay_ms(1000);
-
-  // Try to get adc data
-  // uint8_t value = adc_read(1);
-  // printf("adc: %d", value);
-
+  
   while (1) {
-    for (int ch = 0; ch <= 4; ch++) {
-      uint8_t value = adc_read(0);
-      printf("adc (%i): %d\n", ch, value);
+
+    switch (joy_read_dir()) {
+      case JOY_LEFT:
+        printf("LEFT\r\n");
+        break;
+      case JOY_RIGHT:
+        printf("RIGHT\r\n");
+        break;
+      case JOY_UP:
+        printf("UP\r\n");
+        break;
+      case JOY_DOWN:
+        printf("DOWN\n");
+        break;
+      case JOY_NEUTRAL:
+        printf("NEUTRAL\n");
+        break;
     }
-    _delay_ms(2000);
+    _delay_ms(1000);
 
-    // Read from memory again
-    uint8_t value = xmem_read(0x0);
-    printf("mem: %d\n", value);
-    _delay_ms(2000);
-  }
-
-  while (1) {
-    _delay_ms(500);
   }
 }
