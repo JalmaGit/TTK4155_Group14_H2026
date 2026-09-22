@@ -1,4 +1,7 @@
 // OLED model MCOT128064H1V-WM with driver IC SSD1309
+#ifndef OLED_H_
+#define OLED_H_
+
 #include <stdint.h>
 
 #define WIDTH_PX 128
@@ -25,3 +28,5 @@ void oled_write_data(char);
 void oled_print(char *);
 
 void oled_set_brightness(uint8_t level);
+
+#endif // OLED_H_
