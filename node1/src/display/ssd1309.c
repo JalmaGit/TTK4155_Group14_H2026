@@ -1,4 +1,4 @@
-#include "display/sdd1309.h"
+#include "display/ssd1309.h"
 #include <stdint.h>
 
 void send_command(uint8_t command) {
