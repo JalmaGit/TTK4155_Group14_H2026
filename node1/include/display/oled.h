@@ -12,11 +12,11 @@
 
 // One page represents 8x128 bits/dots.
 
-void oled_init();
+void oled_init(void);
 
-void oled_reset();
+void oled_reset(void);
 
-void oled_home();
+void oled_home(void);
 
 void oled_goto_line(uint8_t line);
 
@@ -30,5 +30,11 @@ void oled_write_data(char);
 void oled_print(char *);
 
 void oled_set_brightness(uint8_t level);
+
+void oled_test(void);
+
+void oled_write_char8(char c);
+void oled_write_char5(char c);
+void oled_write_char4(char c);
 
 #endif // OLED_H_
