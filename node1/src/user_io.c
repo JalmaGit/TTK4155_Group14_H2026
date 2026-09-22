@@ -1,5 +1,10 @@
 #include "user_io.h"
 
+#define JOY_X_CH 1
+#define JOY_Y_CH 0
+#define SLIDER_X_CH 3
+#define SLIDER_Y_CH 2
+
 void joy_calibrate(void) {
   // TODO
 }
