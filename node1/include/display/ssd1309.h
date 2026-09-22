@@ -1,6 +1,6 @@
 // OLED Driver
-#ifndef OLED_H_
-#define OLED_H_
+#ifndef SSD1309_H_
+#define SSD1309_H_
 
 #include <stdint.h>
 
