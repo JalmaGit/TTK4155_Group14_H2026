@@ -34,12 +34,14 @@ int main() {
   // printf("adc: %d", value);
 
   while (1) {
-    uint8_t value = adc_read(0);
-    printf("adc: %d\n", value);
+    for (int ch = 0; ch <= 4; ch++) {
+      uint8_t value = adc_read(0);
+      printf("adc (%i): %d\n", ch, value);
+    }
     _delay_ms(2000);
 
     // Read from memory again
-    value = xmem_read(0x0);
+    uint8_t value = xmem_read(0x0);
     printf("mem: %d\n", value);
     _delay_ms(2000);
   }
