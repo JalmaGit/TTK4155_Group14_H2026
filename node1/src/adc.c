@@ -15,7 +15,7 @@
 #define RD_PIN PD7
 
 #define CLK_DIR_REG DDRD
-#define CLK_PIN DDD5
+#define CLK_PIN PD5
 
 #define ADC_MEM_START 0x1000
 
@@ -60,9 +60,9 @@ void adc_init(void) {
   // Note Capacitors for stable reference (fig 8a)
 
   // Set !WR Pin as Output
-  set_bit(DDRD, WR_PIN);
+  // set_bit(DDRD, WR_PIN);
   // Set !RD Pin as Output
-  set_bit(DDRD, RD_PIN);
+  // set_bit(DDRD, RD_PIN);
 
   configure_adc_clock();
 }
@@ -72,30 +72,36 @@ uint8_t adc_mem_read() {
   return ext_mem[0];
 }
 
-// TODO: Verify that CS is constant inbetween reads.
-void adc_set_cs(void) { adc_mem_read(); }
+void adc_mem_write(uint8_t data) {
+  volatile char *ext_mem = (char *)ADC_MEM_START;
+  ext_mem[0] = data;
+}
 
-void adc_clear_cs(void) { xmem_read(0x0); }
+// TODO: Verify that CS is constant inbetween reads.
+// void adc_set_cs(void) { adc_mem_read(); }
+
+// void adc_clear_cs(void) { xmem_read(0x0); }
 
 void adc_init_conversion(void) {
   // Set WR LOW
-  clear_bit(WR_PORT, WR_PIN);
+  // clear_bit(WR_PORT, WR_PIN);
   // Wait min 100ns, max 2000ns
-  _delay_us(1);
+  //_delay_us(1);
   // Set WR HIGH
-  set_bit(WR_PORT, WR_PIN);
+  // set_bit(WR_PORT, WR_PIN);
   // t_WBD max 220 ns => wait min 220ns
-  _delay_us(1);
+  //_delay_us(1);
+  adc_mem_write(0);
 }
 
 uint8_t adc_read_once(void) {
   // Set RD LOW to declare a read
-  clear_bit(RD_PORT, RD_PIN);
+  // clear_bit(RD_PORT, RD_PIN);
   // Wait at least 100ns for stable data (t_DV)
-  _delay_us(1);
+  //_delay_us(1);
   uint8_t value = adc_mem_read();
   // Set RD HIGH to end the read
-  set_bit(RD_PORT, RD_PIN);
+  // set_bit(RD_PORT, RD_PIN);
   return value;
 }
 
@@ -116,7 +122,7 @@ uint8_t adc_read(uint8_t channel) {
   // !RD to Data Valid min 100ns
   //
   // CLK Frequency min 0.5 MHz to max 5.0 MHz
-  adc_set_cs();
+  // adc_set_cs();
 
   // Initiate a conversion (!WR Low min 100ns, max 2000ns)
   adc_init_conversion();
@@ -126,7 +132,8 @@ uint8_t adc_read(uint8_t channel) {
   // wait at least 220ns then wait for BUSY to go HIGH,
   // then wait another 50ns
 
-  _delay_us(1); // Wait at least 800ns, instead of listening to busy
+  //_delay_us(1); // Wait at least 800ns, instead of listening to busy
+  _delay_us(5);
 
   // Wait at least 50ns after !BUSY goes HIGH beefore issuing a read if
   // waited for BUSY _delay_us(1);
@@ -139,14 +146,14 @@ uint8_t adc_read(uint8_t channel) {
 
   uint8_t value = 0;
 
-  for (int ch = 0; ch < channel; ch++) {
+  for (int ch = 0; ch <= channel; ch++) {
     // Wait t_RDH min 180ns before reading again?
     _delay_us(1);
     value = adc_read_once();
   }
 
   // CS must be cleared ot reset the channel counter.
-  adc_clear_cs();
+  // adc_clear_cs();
 
   return value;
 }
