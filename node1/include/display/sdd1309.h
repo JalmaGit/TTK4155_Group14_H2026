@@ -15,6 +15,7 @@ void addressing_mode_vertical(void);
 void addressing_mode_page(void);
 
 void set_column_address(uint8_t start, uint8_t end);
+void set_page_address(uint8_t start, uint8_t end);
 
 // Note: Automatic address increment on data commands
 
