@@ -9,6 +9,8 @@
 
 #include <avr/pgmspace.h>
 
+#define CONTROL_CHAR_OFFSET 32
+
 // Font 8x8 - Large
 const unsigned char PROGMEM font8[95][8] = {
     {0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000,
@@ -400,5 +402,20 @@ const unsigned char PROGMEM font4[95][4] = {
     {0b10000100, 0b01111000, 0b00010000, 0b00000000}, // }
     {0b00001000, 0b00000100, 0b00001000, 0b00000100}, // ~
 };
+
+const unsigned char *get_char8(unsigned char c) {
+  int c_index = c - CONTROL_CHAR_OFFSET;
+  return font8[c_index];
+}
+
+const unsigned char *get_char5(unsigned char c) {
+  int c_index = c - CONTROL_CHAR_OFFSET;
+  return font5[c_index];
+}
+
+const unsigned char *get_char4(unsigned char c) {
+  int c_index = c - CONTROL_CHAR_OFFSET;
+  return font4[c_index];
+}
 
 #endif /* FONTS_H_ */
