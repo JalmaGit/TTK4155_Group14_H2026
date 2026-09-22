@@ -9,8 +9,6 @@
 #define CLK_DIR_REG DDRD
 #define CLK_PIN PD5
 
-#define ADC_MEM_START 0x1000
-
 void configure_adc_clock(void) {
   // Set Pin PD5 to be output
   set_bit(CLK_DIR_REG, CLK_PIN);
