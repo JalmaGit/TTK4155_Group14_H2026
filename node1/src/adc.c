@@ -17,6 +17,8 @@
 #define CLK_DIR_REG DDRD
 #define CLK_PIN DDD5
 
+#define ADC_MEM_START 0x1000
+
 void configure_adc_clock(void) {
   // Set Pin PD5 to be output
   set_bit(CLK_DIR_REG, CLK_PIN);
@@ -65,10 +67,12 @@ void adc_init(void) {
   configure_adc_clock();
 }
 
-// TODO: Verify that CS is constant inbetween reads.
-void adc_set_cs(void) { xmem_read(0x1000); }
+void adc_mem_read() { volatile char *ext_mem = (char *)ADC_MEM_START; }
 
-void adc_clear_cs(void) { xmem_read(0x1400); }
+// TODO: Verify that CS is constant inbetween reads.
+void adc_set_cs(void) { adc_mem_read(); }
+
+void adc_clear_cs(void) { xmem_read(0x0); }
 
 void adc_init_conversion(void) {
   // Set WR LOW
