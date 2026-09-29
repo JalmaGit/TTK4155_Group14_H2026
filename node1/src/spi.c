@@ -16,7 +16,7 @@ void spi_master_init() {
   set_bit(DDRB, PB4);
   set_bit(DDRB, MOSI_PIN);
   set_bit(DDRB, SCK_PIN);
-  clear_bit(DDRB, PB6);
+  clear_bit(DDRB, PB6); // Set MISO pin to output
 
   /* First set CS pins to HIGH, then set CS pins as output, IO_CS=PB1.
    * OLED_CS=PB0 */
@@ -74,8 +74,8 @@ uint8_t spi_transceive_byte(uint8_t data, uint8_t CS) {
   return received_data;
 }
 
-void spi_transceive_bytes(uint8_t n_bytes, uint8_t send_data[],
-                          uint8_t received_data[], uint8_t CS) {
+void spi_transceive_bytes(uint8_t n_bytes, uint8_t *send_data,
+                          uint8_t *received_data, uint8_t CS) {
   select_device(CS);
   for (uint8_t byte = 0; byte < n_bytes; byte++) {
     received_data[byte] = spi_master_transceive(send_data[byte]);
