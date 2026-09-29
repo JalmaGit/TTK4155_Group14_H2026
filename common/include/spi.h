@@ -1,10 +1,11 @@
 #ifndef SPI_H
 #define SPI_H
 
+#include <avr/io.h>
 #include <stdint.h>
 
-void spi_master_init(void);
-uint8_t spi_master_transceive(uint8_t data, volatile uint8_t *port,
-                              uint8_t pin);
+void spi_master_init();
+uint8_t spi_transceive_byte(uint8_t data, uint8_t CS);
+void spi_transceive_bytes(uint8_t n_bytes, uint8_t send_data[], uint8_t received_data[],uint8_t CS);
 
 #endif // SPI_H
