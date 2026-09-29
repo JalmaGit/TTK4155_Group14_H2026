@@ -7,6 +7,9 @@
 #define MOSI_PIN PB5
 #define SCK_PIN PB7
 
+#define CS_DISP_PIN PB0
+#define CS_IO_PIN PB1
+
 void spi_master_init() {
   /* set MOSI and SCK output, all other input
     set PB4 as output, otherwise it can be used to override SPI-master mode */
@@ -18,6 +21,10 @@ void spi_master_init() {
   set_bit(SPCR, MSTR);
   set_bit(SPCR, SPE);
   set_bit(SPCR, SPR0);
+
+  // Set CS pins to be outputs
+  set_bit(DDRB, CS_DISP_PIN);
+  set_bit(DDRB, CS_IO_PIN);
 }
 
 bool is_complete() { return test_bit(SPSR, SPIF); }
