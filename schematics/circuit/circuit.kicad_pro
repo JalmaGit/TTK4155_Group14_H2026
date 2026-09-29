@@ -661,7 +661,7 @@
         "uuid": "a0fbafcd-7e01-42a2-97f7-971c6d70f3e6"
       }
     ],
-    "used_designators": "RV1-4,IC1-2,J1-3,SW1,R1-3,D1,C1-17,Y1,#PWR1-40,U1-6",
+    "used_designators": "RV1-4,IC1-2,J1-3,SW1,R1-3,D1,C1-17,Y1-2,#PWR1-42,U1-6",
     "variants": []
   },
   "sheets": [
@@ -688,6 +688,10 @@
     [
       "3f3b99a5-7c20-4fe1-abb2-e3519edce8b4",
       "ADC"
+    ],
+    [
+      "4c96d9dc-1205-436f-ae58-98b88ae70299",
+      "CAN"
     ]
   ],
   "text_variables": {},
