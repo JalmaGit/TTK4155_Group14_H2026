@@ -19,6 +19,10 @@ void addressing_mode_page(void);
 void set_column_address(uint8_t start, uint8_t end);
 void set_page_address(uint8_t start, uint8_t end);
 
+// Page Addressing Mode
+void set_page(uint8_t page);
+void set_column(uint8_t col);
+
 // Note: Automatic address increment on data commands
 
 #endif // OLED_H_

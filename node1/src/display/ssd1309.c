@@ -74,3 +74,18 @@ void set_page_address(uint8_t start, uint8_t end) {
   send_command(start);
   send_command(end);
 }
+
+// Set Page Address for Page Addressing mode
+void set_page(uint8_t page) {
+  uint8_t command = 0b10110000;
+  command = command | (page & 0b00001111);
+  send_command(command);
+}
+
+// Set Column Address for Page Addressing Mode
+void set_column(uint8_t col) {
+  uint8_t cmd_low = 0x00 | (col & 0x0F);
+  uint8_t cmd_high = 0x10 | (col >> 4);
+  send_command(cmd_low);
+  send_command(cmd_high);
+}
