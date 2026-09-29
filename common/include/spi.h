@@ -1,7 +1,6 @@
 #ifndef SPI_H
 #define SPI_H
 
-#include <avr/io.h>
 #include <stdint.h>
 
 void spi_master_init();
