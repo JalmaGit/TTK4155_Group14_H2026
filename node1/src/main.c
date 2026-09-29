@@ -1,6 +1,5 @@
 #include "adc.h"
 #include "display/oled.h"
-#include "lights.h"
 #include "spi.h"
 #include "uart.h"
 #include "ui/menu_items.h"
@@ -23,7 +22,6 @@
 
 int main() {
   uart_init(MY_UBRR);
-
   spi_master_init();
 
   _delay_ms(500);
