@@ -51,5 +51,9 @@ int main() {
 
   _delay_ms(1000);
 
+  oled_init();
+
+  _delay_ms(100);
+
   oled_test();
 }

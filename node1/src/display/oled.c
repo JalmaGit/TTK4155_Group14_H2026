@@ -3,7 +3,10 @@
 #include "display/ssd1309.h"
 #include <util/delay.h>
 
-void oled_init(void) { display_on(); }
+void oled_init(void) {
+  ssd1309_init();
+  display_on();
+}
 
 void oled_write_char8(char c) {
   for (int i = 0; i < 8; i++) {

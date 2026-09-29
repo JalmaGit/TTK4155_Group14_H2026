@@ -8,6 +8,7 @@ void send_command(uint8_t command);
 void send_data(uint8_t data);
 
 // Commands //
+void ssd1309_init(void);
 
 void display_on(void);
 

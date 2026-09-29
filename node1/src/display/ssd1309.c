@@ -1,14 +1,42 @@
 #include "display/ssd1309.h"
+#include "common.h"
+#include "spi.h"
+#include <avr/io.h>
 #include <stdint.h>
 
+// Data/Command selector for OLED
+#define DC_DIR_REG DDRD
+#define DC_PIN PD0
+#define DC_PORT PORTD
+
+// SPI Ports
+#define IO_CS PB1
+#define DISP_CS PB0
+#define PORT_SPI PORTB
+
+void ssd1309_init(void) {
+  // Set D!C Pin to be Output
+  set_bit(DC_DIR_REG, PD0);
+
+  // Segment remap (Flip Horizontally)
+  send_command(0xA1);
+  // Scan Direction (Flip Vertically)
+  send_command(0xC8);
+  // Output Enable
+  send_command(0xAF);
+}
+
 void send_command(uint8_t command) {
-  // TODO: Implement
   // Set D/C# LOW
+  clear_bit(DC_PORT, DC_PIN);
+  spi_master_transceive(command, &PORT_SPI, DISP_CS);
 }
 
 void send_data(uint8_t data) {
-  // TODO: Implement
-  // SET D/C# HIGH
+  // Set D/C# HIGH
+  set_bit(DC_PORT, DC_PIN);
+
+  spi_master_transceive(data, &PORT_SPI, DISP_CS);
 }
 
 // Commands //
