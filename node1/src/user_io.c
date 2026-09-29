@@ -29,13 +29,6 @@ void joy_calibrate(void) {
   joy_neutral.y = (float) adc_read(JOY_Y_CH);
 }
 
-vec2_t joy_read_vec(void) {
-  // Neutral is 0, max is 1, min is -1
-  vec2_t joy_pos = joy_read_vec_raw();
-  normalize(&joy_pos, true);
-  return joy_pos;
-}
-
 vec2_t joy_read_vec_raw(void) {
   vec2_t joy_pos = {0.0, 0.0};
   joy_pos.x = (float) adc_read(JOY_X_CH);
@@ -91,6 +84,13 @@ void normalize(vec2_t *vec, bool is_joystick) {
   }
 }
 
+vec2_t joy_read_vec(void) {
+  // Neutral is 0, max is 1, min is -1
+  vec2_t joy_pos = joy_read_vec_raw();
+  normalize(&joy_pos, true);
+  return joy_pos;
+}
+
 JoyDir joy_read_dir(void) {
   // Returns the main direction of the joystick based on 
   // the normalized x and y values.
@@ -109,14 +109,6 @@ JoyDir joy_read_dir(void) {
   }
 }
 
-
-vec2_t pad_read_vec(void) {
-  // Neutral is 0, max is 1, min is -1
-  vec2_t pad_pos = pad_read_vec_raw();
-  normalize(&pad_pos, false);
-  return pad_pos;
-}
-
 vec2_t pad_read_vec_raw(void) {
   vec2_t pad_pos = {0.0, 0.0};
   pad_pos.x = (float) adc_read(PAD_X_CH);
@@ -124,4 +116,11 @@ vec2_t pad_read_vec_raw(void) {
   return pad_pos;
 }
 
+
+vec2_t pad_read_vec(void) {
+  // Neutral is 0, max is 1, min is -1
+  vec2_t pad_pos = pad_read_vec_raw();
+  normalize(&pad_pos, false);
+  return pad_pos;
+}
 
