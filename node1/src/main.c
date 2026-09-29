@@ -19,14 +19,31 @@ int main() {
   adc_init();
   oled_init();
   uart_init(MY_UBRR);
-
-  joy_calibrate();
+  joy_calibrate(); // Joystick needs to be in neutral position
 
   _delay_ms(1000);
 
   oled_test();
 
   while (1) {
-    _delay_ms(500);
+
+    switch (joy_read_dir()) {
+    case JOY_LEFT:
+      printf("LEFT\r\n");
+      break;
+    case JOY_RIGHT:
+      printf("RIGHT\r\n");
+      break;
+    case JOY_UP:
+      printf("UP\r\n");
+      break;
+    case JOY_DOWN:
+      printf("DOWN\n");
+      break;
+    case JOY_NEUTRAL:
+      printf("NEUTRAL\n");
+      break;
+    }
+    _delay_ms(1000);
   }
 }
