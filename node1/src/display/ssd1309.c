@@ -13,7 +13,10 @@ void send_data(uint8_t data) {
 
 // Commands //
 
-void display_on(void) { send_command(0x81); }
+void display_on(void) {
+  send_command(0x81);
+  send_command(0x7F);
+}
 
 void addressing_mode_horizontal(void) {
   send_command(0x20);
