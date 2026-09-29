@@ -7,7 +7,10 @@ SOURCE_FILES := src/main.c \
 								src/user_io.c \
 								src/display/oled.c \
 								src/display/ssd1309.c \
+								src/spi.c \
 								src/tests/sram_test.c
+
+include ../common/Makefile
 
 # Set this flag to "yes" (no quotes) to use JTAG; otherwise ISP (SPI) is used
 PROGRAM_WITH_JTAG := yes
@@ -26,9 +29,11 @@ CC := avr-gcc
 # custom addtions:
 # - add `include` folder
 # - add `#define F_CPU` to make it available everywhere sleep is used
-CFLAGS := -O -std=c11 -mmcu=$(TARGET_CPU) -ggdb -Iinclude -DF_CPU=4915200
+# - add `-I$(COMMON_INCLUDE)` to include Mafefile from common/ 
+CFLAGS := -O -std=c11 -mmcu=$(TARGET_CPU) -ggdb -Iinclude -I$(COMMON_INCLUDE) -DF_CPU=4915200
 
-OBJECT_FILES = $(SOURCE_FILES:%.c=$(BUILD_DIR)/%.o)
+OBJECT_FILES = $(SOURCE_FILES:%.c=$(BUILD_DIR)/%.o) \
+							 $(COMMON_SOURCES:$(COMMON_DIR)%.c=$(BUILD_DIR)/common/%.o)
 
 .DEFAULT_GOAL := $(BUILD_DIR)/main.hex
 
@@ -36,6 +41,10 @@ $(BUILD_DIR):
 	mkdir $(BUILD_DIR)
 
 $(BUILD_DIR)/%.o: %.c | $(BUILD_DIR)
+	mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(BUILD_DIR)/common/%.o: $(COMMON_DIR)%.c | $(BUILD_DIR)
 	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
