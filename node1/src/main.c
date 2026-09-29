@@ -3,6 +3,7 @@
 #include "lights.h"
 #include "spi.h"
 #include "uart.h"
+#include "ui/menu_items.h"
 #include "user_io.h"
 #include "xmem.h"
 #include <avr/io.h>
@@ -37,5 +38,9 @@ int main() {
 
   _delay_ms(100);
 
-  oled_test();
+  menu_main();
+
+  while (1) {
+    _delay_ms(100);
+  }
 }
