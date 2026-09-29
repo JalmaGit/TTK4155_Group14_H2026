@@ -23,10 +23,4 @@ vec2_t joy_read_vec(void);
 
 JoyDir joy_read_dir(void);
 
-vec2_t joy_read_vec_raw(void);
-
-void normalize(vec2_t *vec, bool is_joystick);
-
 vec2_t pad_read_vec(void);
-
-vec2_t pad_read_vec_raw(void);

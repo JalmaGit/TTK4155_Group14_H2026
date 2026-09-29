@@ -30,6 +30,3 @@ No-Touch: 100mV
 Info: Does not re-center, keeps outputting the last touched point on the trackpad
 ----  TOUCHBAR  ----
 
-
-TODO: Map joysickX/Y and SliderX/Y to channels
-
