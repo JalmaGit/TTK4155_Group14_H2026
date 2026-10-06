@@ -1,6 +1,5 @@
 # List all source files to be compiled; separate with space
 SOURCE_FILES := src/main.c \
-								src/lights.c \
 								src/uart.c \
 								src/xmem.c \
 								src/adc.c \
@@ -11,7 +10,8 @@ SOURCE_FILES := src/main.c \
 								src/mcp2515_can.c
 								src/ui/menu.c \
 								src/ui/menu_view.c \
-								src/tests/sram_test.c
+								src/tests/sram_test.c \
+								src/tests/led_test.c
 
 include ../common/Makefile
 
