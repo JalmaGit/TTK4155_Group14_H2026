@@ -9,24 +9,28 @@
 
 #define CS_DISP_PIN PB0
 #define CS_IO_PIN PB1
+#define CS_CAN_PIN PB4
 
 #define IO_CS 0
 #define OLED_CS 1
+#define CAN_CS 2
 
 void spi_master_init() {
-  /* set MOSI and SCK output, all other input
-    set PB4 as output, otherwise it can be used to override SPI-master mode */
-  set_bit(DDRB, PB4);
-  set_bit(DDRB, MOSI_PIN);
-  set_bit(DDRB, SCK_PIN);
-  clear_bit(DDRB, PB6); // Set MISO pin to output
 
   /* First set CS pins to HIGH, then set CS pins as output, IO_CS=PB1.
    * OLED_CS=PB0 */
-  set_bit(PORTB, PB1);
-  set_bit(PORTB, PB0);
   set_bit(DDRB, CS_IO_PIN);
   set_bit(DDRB, CS_DISP_PIN);
+  set_bit(DDRB, CS_CAN_PIN);
+  set_bit(PORTB, CS_IO_PIN);
+  set_bit(PORTB, CS_DISP_PIN);
+  set_bit(PORTB, CS_CAN_PIN);
+
+  /* set MOSI and SCK output, all other input
+    set PB4 as output, otherwise it can be used to override SPI-master mode */
+  set_bit(DDRB, MOSI_PIN);
+  set_bit(DDRB, SCK_PIN);
+  clear_bit(DDRB, PB6); // Set MISO pin to output
 
   /* Enable SPI, Master, set clock rate fck/16 */
   set_bit(SPCR, MSTR);
@@ -44,6 +48,9 @@ void select_device(uint8_t CS) {
   case (OLED_CS):
     clear_bit(PORTB, CS_DISP_PIN);
     break;
+  case (CAN_CS):
+    clear_bit(PORTB, CS_CAN_PIN);
+    break;
   };
 }
 
@@ -55,6 +62,9 @@ void deselect_device(uint8_t CS) {
     break;
   case (OLED_CS):
     set_bit(PORTB, CS_DISP_PIN);
+    break;
+  case (CAN_CS):
+    set_bit(PORTB, CS_CAN_PIN);
     break;
   };
 }
