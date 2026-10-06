@@ -32,12 +32,12 @@ void oled_write_data(char);
 void oled_test(void);
 
 // Char/String Writing
-void oled_write_char8(char c);
-void oled_write_char5(char c);
-void oled_write_char4(char c);
+void oled_write_char_large(char c);
+void oled_write_char_medium(char c);
+void oled_write_char_small(char c);
 
-void oled_write_str8(const char *str);
-void oled_write_str5(const char *str);
-void oled_write_str4(const char *str);
+void oled_write_str_large(const char *str);
+void oled_write_str_medium(const char *str);
+void oled_write_str_small(const char *str);
 
 #endif // OLED_H_
