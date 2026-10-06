@@ -28,6 +28,7 @@ int main() {
 
   xmem_init();
   adc_init();
+  led_init();
   joy_calibrate(); // Joystick needs to be in neutral position
 
   _delay_ms(1000);

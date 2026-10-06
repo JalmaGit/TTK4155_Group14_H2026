@@ -143,6 +143,12 @@ Buttons read_buttons(void) {
   return buttons;
 }
 
+void led_init(void) {
+  for (int i = 0; i <= 5; i++) {
+    set_led(i, 0);
+  }
+}
+
 void set_led(uint8_t led_n, uint8_t value) {
   spi_transceive_byte(0x05, IO_CS);
   _delay_us(40);

@@ -68,6 +68,8 @@ typedef struct __attribute__((packed)) {
 
 Buttons read_buttons(void);
 
+void led_init(void);
+
 // `led_n` is between 0 and 5.
 // `value` is 0 or 1.
 void set_led(uint8_t led_n, uint8_t value);
