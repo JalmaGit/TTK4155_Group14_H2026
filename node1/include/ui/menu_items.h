@@ -4,20 +4,25 @@
 #define MENU_ITEMS_H_
 
 #include "display/oled.h"
+#include "tests/led_test.h"
 #include "ui/menu.h"
 
-typedef enum { TEST_MENU_OLED } test_menu_action;
+typedef enum { TEST_MENU_OLED, TEST_MENU_LED } test_menu_action;
 
 static void menu_tests(void) {
   static const menu_item_t items[] = {
       {"OLED Test", TEST_MENU_OLED},
+      {"LED Test", TEST_MENU_LED},
   };
   int selected = 0;
 
   for (;;) {
-    switch (menu_run("Tests", items, 1, &selected)) {
+    switch (menu_run("Tests", items, 2, &selected)) {
     case TEST_MENU_OLED:
       oled_test();
+      break;
+    case TEST_MENU_LED:
+      led_test();
       break;
     case MENU_BACK:
       return;

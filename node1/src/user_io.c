@@ -128,13 +128,15 @@ vec2_t pad_read_vec(void) {
 // IO-Board AVR
 
 Buttons read_buttons(void) {
-  spi_transceive_byte(0x04, IO_CS);
+  select_device(IO_CS);
+  spi_master_transceive(0x04);
   _delay_us(40);
-  uint8_t right = spi_transceive_byte(0x00, IO_CS);
+  uint8_t right = spi_master_transceive(0x00);
   _delay_us(2);
-  uint8_t left = spi_transceive_byte(0x00, IO_CS);
+  uint8_t left = spi_master_transceive(0x00);
   _delay_us(2);
-  uint8_t nav = spi_transceive_byte(0x00, IO_CS);
+  uint8_t nav = spi_master_transceive(0x00);
+  deselect_device(IO_CS);
 
   Buttons buttons;
   buttons.right = right;
@@ -149,18 +151,21 @@ void led_init(void) {
   }
 }
 
-void set_led(uint8_t led_n, uint8_t value) {
-  spi_transceive_byte(0x05, IO_CS);
+// Note, the CS must be low during *all* transactions within one command.
+void io_write_2_data(uint8_t cmd, uint8_t a, uint8_t b) {
+  select_device(IO_CS);
+  spi_master_transceive(cmd);
   _delay_us(40);
-  spi_transceive_byte(led_n, IO_CS);
+  spi_master_transceive(a);
   _delay_us(2);
-  spi_transceive_byte(value, IO_CS);
+  spi_master_transceive(b);
+  deselect_device(IO_CS);
+}
+
+void set_led(uint8_t led_n, uint8_t value) {
+  io_write_2_data(0x05, led_n, value);
 }
 
 void set_led_pwm(uint8_t led_n, uint8_t brightness) {
-  spi_transceive_byte(0x06, IO_CS);
-  _delay_us(40);
-  spi_transceive_byte(led_n, IO_CS);
-  _delay_us(2);
-  spi_transceive_byte(brightness, IO_CS);
+  io_write_2_data(0x06, led_n, brightness);
 }
