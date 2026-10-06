@@ -23,11 +23,13 @@ enum { CS_ID_IO, CS_ID_OLED };
 #define FOSC F_CPU
 // bits per second
 #define BAUD 9600
-// Table 70 in ATmega162 datasheet
 
 // --- External Memory --- //
 #define MEM_EXT_START 0x1400
 #define MEM_ADC_START 0x1000
+
+// --- UART -- //
+// Table 70 in ATmega162 datasheet
 #define MY_UBRR FOSC / 16 / BAUD - 1
 
 // --- SPI --- //
