@@ -1,17 +1,14 @@
 #include "adc.h"
 #include "avr/io.h"
+#include "board.h"
 #include "common.h"
-#include "xmem.h"
 #include <stdbool.h>
 #include <stdint.h>
 #include <util/delay.h>
 
-#define CLK_DIR_REG DDRD
-#define CLK_PIN PD5
-
 void configure_adc_clock(void) {
   // Set Pin PD5 to be output
-  set_bit(CLK_DIR_REG, CLK_PIN);
+  set_bit(ADC_CLK_DDR, ADC_CLK_BIT);
 
   // Toggle OC1A/OC1B on Compare Match
   set_bit(TCCR1A, COM1A0);
@@ -53,12 +50,12 @@ void adc_init(void) {
 }
 
 uint8_t adc_mem_read() {
-  volatile char *ext_mem = (char *)ADC_MEM_START;
+  volatile char *ext_mem = (char *)MEM_ADC_START;
   return ext_mem[0];
 }
 
 void adc_mem_write(uint8_t data) {
-  volatile char *ext_mem = (char *)ADC_MEM_START;
+  volatile char *ext_mem = (char *)MEM_ADC_START;
   ext_mem[0] = data;
 }
 
