@@ -10,17 +10,20 @@
 
 int main() {
   uart_init(MY_UBRR);
+  printf("UART Initialized...");
   spi_master_init();
 
   _delay_ms(500);
 
   xmem_init();
   adc_init();
+  led_init();
   joy_calibrate(); // Joystick needs to be in neutral position
 
   _delay_ms(1000);
 
   oled_init();
+  printf("OLED Initialized...");
 
   _delay_ms(100);
 
