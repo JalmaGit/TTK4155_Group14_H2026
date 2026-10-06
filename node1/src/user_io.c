@@ -9,6 +9,9 @@
 #define PAD_X_CH 3
 #define PAD_Y_CH 2
 
+// TODO: Use own file for CS and pin configs.
+#define IO_CS 0
+
 // Hardcoded values for the joystick's min and max values,
 // based on the ADC readings. These values may need to be
 // adjusted based on the specific joystick being used.
@@ -125,14 +128,13 @@ vec2_t pad_read_vec(void) {
 // IO-Board AVR
 
 Buttons read_buttons(void) {
-  // TODO: Use own file for CS and pin configs.
-  spi_transceive_byte(0x04, 0);
+  spi_transceive_byte(0x04, IO_CS);
   _delay_us(40);
-  uint8_t right = spi_transceive_byte(0x00, 0);
+  uint8_t right = spi_transceive_byte(0x00, IO_CS);
   _delay_us(2);
-  uint8_t left = spi_transceive_byte(0x00, 0);
+  uint8_t left = spi_transceive_byte(0x00, IO_CS);
   _delay_us(2);
-  uint8_t nav = spi_transceive_byte(0x00, 0);
+  uint8_t nav = spi_transceive_byte(0x00, IO_CS);
 
   Buttons buttons;
   buttons.right = right;
