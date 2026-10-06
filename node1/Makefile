@@ -6,7 +6,8 @@ SOURCE_FILES := src/main.c \
 								src/adc.c \
 								src/user_io.c \
 								src/spi.c \
-								src/tests/sram_test.c
+								src/tests/sram_test.c \
+								src/can.c
 
 include ../common/Makefile
 
