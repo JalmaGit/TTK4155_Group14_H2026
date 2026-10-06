@@ -68,4 +68,6 @@ typedef struct __attribute__((packed)) {
 
 Buttons read_buttons(void);
 
+void set_led(uint8_t led_n, uint8_t value);
+
 #endif // USER_IO_H_

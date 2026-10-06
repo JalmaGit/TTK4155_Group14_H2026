@@ -142,3 +142,11 @@ Buttons read_buttons(void) {
   buttons.nav = nav;
   return buttons;
 }
+
+void set_led(uint8_t led_n, uint8_t value) {
+  spi_transceive_byte(0x05, IO_CS);
+  _delay_us(40);
+  spi_transceive_byte(led_n, IO_CS);
+  _delay_us(2);
+  spi_transceive_byte(value, IO_CS);
+}
