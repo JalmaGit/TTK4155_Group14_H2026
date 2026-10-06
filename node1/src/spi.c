@@ -1,32 +1,27 @@
 #include "spi.h"
+#include "board.h"
 #include "common.h"
 #include <avr/io.h>
 #include <stdbool.h>
 #include <stdint.h>
 
-#define MOSI_PIN PB5
-#define SCK_PIN PB7
-
-#define CS_DISP_PIN PB0
-#define CS_IO_PIN PB1
-
-#define IO_CS 0
-#define OLED_CS 1
-
 void spi_master_init() {
   /* set MOSI and SCK output, all other input
-    set PB4 as output, otherwise it can be used to override SPI-master mode */
-  set_bit(DDRB, PB4);
-  set_bit(DDRB, MOSI_PIN);
-  set_bit(DDRB, SCK_PIN);
-  clear_bit(DDRB, PB6); // Set MISO pin to output
+    set SPI SS (PB4) as output, otherwise it can be used to override SPI-master
+    mode */
+  set_bit(SPI_DDR, SPI_SS_BIT);
+  set_bit(SPI_DDR, SPI_MOSI_BIT);
+  set_bit(SPI_DDR, SPI_SCK_BIT);
+  clear_bit(SPI_DDR, SPI_MISO_BIT); // Set MISO pin to input
 
   /* First set CS pins to HIGH, then set CS pins as output, IO_CS=PB1.
    * OLED_CS=PB0 */
-  set_bit(PORTB, PB1);
-  set_bit(PORTB, PB0);
-  set_bit(DDRB, CS_IO_PIN);
-  set_bit(DDRB, CS_DISP_PIN);
+  set_bit(SPI_PORT, CS_IO_BIT);
+  set_bit(SPI_PORT, CS_DISP_BIT);
+  set_bit(SPI_PORT, CS_CAN_BIT);
+  set_bit(SPI_DDR, CS_IO_BIT);
+  set_bit(SPI_DDR, CS_DISP_BIT);
+  set_bit(SPI_DDR, CS_CAN_BIT);
 
   /* Enable SPI, Master, set clock rate fck/16 */
   set_bit(SPCR, MSTR);
@@ -38,11 +33,11 @@ bool is_complete() { return test_bit(SPSR, SPIF); }
 
 void select_device(uint8_t CS) {
   switch (CS) {
-  case (IO_CS):
-    clear_bit(PORTB, CS_IO_PIN);
+  case (CS_ID_IO):
+    clear_bit(CS_PORT, CS_IO_BIT);
     break;
-  case (OLED_CS):
-    clear_bit(PORTB, CS_DISP_PIN);
+  case (CS_ID_DISP):
+    clear_bit(CS_PORT, CS_DISP_BIT);
     break;
   };
 }
@@ -50,11 +45,11 @@ void select_device(uint8_t CS) {
 void deselect_device(uint8_t CS) {
 
   switch (CS) {
-  case (IO_CS):
-    set_bit(PORTB, CS_IO_PIN);
+  case (CS_ID_IO):
+    set_bit(CS_PORT, CS_IO_BIT);
     break;
-  case (OLED_CS):
-    set_bit(PORTB, CS_DISP_PIN);
+  case (CS_ID_DISP):
+    set_bit(CS_PORT, CS_DISP_BIT);
     break;
   };
 }

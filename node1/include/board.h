@@ -13,10 +13,11 @@
 #define CS_PORT PORTB
 #define CS_DDR DDRB
 #define CS_DISP_BIT PB0
-#define CS_IO_PIN PB1
+#define CS_IO_BIT PB1
+#define CS_CAN_BIT PB4
 
 // CS IDs, used in `select_device()`
-enum { CS_ID_IO, CS_ID_OLED };
+enum { CS_ID_IO, CS_ID_DISP };
 
 // CLOCK //
 // System Oscillator clock frequency
@@ -35,6 +36,7 @@ enum { CS_ID_IO, CS_ID_OLED };
 // --- SPI --- //
 #define SPI_PORT PORTB
 #define SPI_DDR DDRB
+#define SPI_SS_BIT PB4
 #define SPI_MOSI_BIT PB5
 #define SPI_MISO_BIT PB6
 #define SPI_SCK_BIT PB7
