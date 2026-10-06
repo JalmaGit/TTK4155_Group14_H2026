@@ -1,4 +1,5 @@
-// Repsonsible for oled menu elements
+// Repsonsible for oled menu logic.
+
 #ifndef MENU_H_
 #define MENU_H_
 

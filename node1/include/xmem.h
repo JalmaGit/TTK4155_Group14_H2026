@@ -1,7 +1,7 @@
+// This module is responsible for handling external memory for the ATmega162.
+
 #ifndef XMEM_H
 #define XMEM_H
-
-// This module is responsible for handling external memory for the ATmega162.
 
 #include <stdint.h>
 

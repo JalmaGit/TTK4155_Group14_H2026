@@ -1,3 +1,4 @@
+/// This module declares the drawing utilities for the menu.
 
 #ifndef MENU_VIEW_H_
 #define MENU_VIEW_H_

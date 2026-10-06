@@ -1,7 +1,7 @@
+// This module is responsible for translating User IO input into usable data.
+
 #ifndef USER_IO_H_
 #define USER_IO_H_
-
-// This module is responsible for translating User IO input into usable data.
 
 #include <stdbool.h>
 
