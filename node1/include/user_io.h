@@ -68,6 +68,12 @@ typedef struct __attribute__((packed)) {
 
 Buttons read_buttons(void);
 
+// `led_n` is between 0 and 5.
+// `value` is 0 or 1.
 void set_led(uint8_t led_n, uint8_t value);
+
+// `led_n` is between 0 and 5.
+// `brightness` is a value between 0 (min) and 255 (max).
+void set_led_pwm(uint8_t led_n, uint8_t brightness);
 
 #endif // USER_IO_H_

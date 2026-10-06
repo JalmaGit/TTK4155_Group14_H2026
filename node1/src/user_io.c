@@ -150,3 +150,11 @@ void set_led(uint8_t led_n, uint8_t value) {
   _delay_us(2);
   spi_transceive_byte(value, IO_CS);
 }
+
+void set_led_pwm(uint8_t led_n, uint8_t brightness) {
+  spi_transceive_byte(0x06, IO_CS);
+  _delay_us(40);
+  spi_transceive_byte(led_n, IO_CS);
+  _delay_us(2);
+  spi_transceive_byte(brightness, IO_CS);
+}
