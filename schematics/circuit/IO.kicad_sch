@@ -3749,7 +3749,7 @@
 			)
 		)
 	)
-	(global_label "DISP_CS{slash}PB1"
+	(global_label "DISP_CS{slash}PB0"
 		(shape input)
 		(at 71.12 69.85 0)
 		(fields_autoplaced yes)
@@ -3797,7 +3797,7 @@
 			)
 		)
 	)
-	(global_label "IO_CS{slash}PB0"
+	(global_label "IO_CS{slash}PB1"
 		(shape input)
 		(at 71.12 72.39 0)
 		(fields_autoplaced yes)
