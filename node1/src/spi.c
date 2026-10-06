@@ -1,4 +1,5 @@
 #include "spi.h"
+#include "board.h"
 #include "common.h"
 #include <avr/io.h>
 #include <stdbool.h>
@@ -17,18 +18,21 @@
 
 void spi_master_init() {
   /* set MOSI and SCK output, all other input
-    set PB4 as output, otherwise it can be used to override SPI-master mode */
-  set_bit(DDRB, PB4);
-  set_bit(DDRB, MOSI_PIN);
-  set_bit(DDRB, SCK_PIN);
-  clear_bit(DDRB, PB6); // Set MISO pin to output
+    set SPI SS (PB4) as output, otherwise it can be used to override SPI-master
+    mode */
+  set_bit(SPI_DDR, SPI_SS_BIT);
+  set_bit(SPI_DDR, SPI_MOSI_BIT);
+  set_bit(SPI_DDR, SPI_SCK_BIT);
+  clear_bit(SPI_DDR, SPI_MISO_BIT); // Set MISO pin to input
 
   /* First set CS pins to HIGH, then set CS pins as output, IO_CS=PB1.
-   * DISP_CS=PB0 */
-  set_bit(PORTB, PB1);
-  set_bit(PORTB, PB0);
-  set_bit(DDRB, IO_CS_PIN);
-  set_bit(DDRB, DISP_CS_PIN);
+   * OLED_CS=PB0 */
+  set_bit(SPI_PORT, CS_IO_BIT);
+  set_bit(SPI_PORT, CS_DISP_BIT);
+  set_bit(SPI_PORT, CS_CAN_BIT);
+  set_bit(SPI_DDR, CS_IO_BIT);
+  set_bit(SPI_DDR, CS_DISP_BIT);
+  set_bit(SPI_DDR, CS_CAN_BIT);
 
   /* Enable SPI, Master, set clock rate fck/16 */
   set_bit(SPCR, MSTR);
