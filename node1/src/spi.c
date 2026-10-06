@@ -7,6 +7,9 @@
 #define MOSI_PIN PB5
 #define SCK_PIN PB7
 
+#define CS_DISP_PIN PB0
+#define CS_IO_PIN PB1
+
 #define IO_CS 0
 #define OLED_CS 1
 
@@ -22,8 +25,8 @@ void spi_master_init() {
    * OLED_CS=PB0 */
   set_bit(PORTB, PB1);
   set_bit(PORTB, PB0);
-  set_bit(DDRB, PB1);
-  set_bit(DDRB, PB0);
+  set_bit(DDRB, CS_IO_PIN);
+  set_bit(DDRB, CS_DISP_PIN);
 
   /* Enable SPI, Master, set clock rate fck/16 */
   set_bit(SPCR, MSTR);
@@ -34,13 +37,12 @@ void spi_master_init() {
 bool is_complete() { return test_bit(SPSR, SPIF); }
 
 void select_device(uint8_t CS) {
-
   switch (CS) {
   case (IO_CS):
-    clear_bit(PORTB, PB1);
+    clear_bit(PORTB, CS_IO_PIN);
     break;
   case (OLED_CS):
-    clear_bit(PORTB, PB0);
+    clear_bit(PORTB, CS_DISP_PIN);
     break;
   };
 }
@@ -49,16 +51,15 @@ void deselect_device(uint8_t CS) {
 
   switch (CS) {
   case (IO_CS):
-    set_bit(PORTB, PB1);
+    set_bit(PORTB, CS_IO_PIN);
     break;
   case (OLED_CS):
-    set_bit(PORTB, PB0);
+    set_bit(PORTB, CS_DISP_PIN);
     break;
   };
 }
 
 uint8_t spi_master_transceive(uint8_t data) {
-
   SPDR = data;
   while (!is_complete()) {
   }
@@ -67,7 +68,6 @@ uint8_t spi_master_transceive(uint8_t data) {
 }
 
 uint8_t spi_transceive_byte(uint8_t data, uint8_t CS) {
-
   select_device(CS);
   uint8_t received_data = spi_master_transceive(data);
   deselect_device(CS);

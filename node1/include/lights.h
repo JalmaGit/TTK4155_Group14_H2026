@@ -1,7 +1,6 @@
 #ifndef LIGHTS_H
 #define LIGHTS_H
 
-
 #include <stdint.h>
 
 void status_light_init(void);

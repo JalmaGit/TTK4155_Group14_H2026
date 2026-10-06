@@ -5,9 +5,13 @@ SOURCE_FILES := src/main.c \
 								src/xmem.c \
 								src/adc.c \
 								src/user_io.c \
+								src/display/oled.c \
+								src/display/ssd1309.c \
 								src/spi.c \
-								src/tests/sram_test.c \
 								src/can.c
+								src/ui/menu.c \
+								src/ui/menu_view.c \
+								src/tests/sram_test.c
 
 include ../common/Makefile
 
