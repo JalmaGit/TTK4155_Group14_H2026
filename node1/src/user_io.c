@@ -1,5 +1,6 @@
 #include "user_io.h"
 #include "adc.h"
+#include "board.h"
 #include "spi.h"
 #include <stdbool.h>
 #include <util/delay.h>
@@ -8,9 +9,6 @@
 #define JOY_Y_CH 0
 #define PAD_X_CH 3
 #define PAD_Y_CH 2
-
-// TODO: Use own file for CS and pin configs.
-#define IO_CS 0
 
 // Hardcoded values for the joystick's min and max values,
 // based on the ADC readings. These values may need to be
@@ -128,7 +126,7 @@ vec2_t pad_read_vec(void) {
 // IO-Board AVR
 
 Buttons read_buttons(void) {
-  select_device(IO_CS);
+  select_device(CS_ID_IO);
   spi_master_transceive(0x04);
   _delay_us(40);
   uint8_t right = spi_master_transceive(0x00);
@@ -136,7 +134,7 @@ Buttons read_buttons(void) {
   uint8_t left = spi_master_transceive(0x00);
   _delay_us(2);
   uint8_t nav = spi_master_transceive(0x00);
-  deselect_device(IO_CS);
+  deselect_device(CS_ID_IO);
 
   Buttons buttons;
   buttons.right = right;
@@ -153,13 +151,13 @@ void led_init(void) {
 
 // Note, the CS must be low during *all* transactions within one command.
 void io_write_2_data(uint8_t cmd, uint8_t a, uint8_t b) {
-  select_device(IO_CS);
+  select_device(CS_ID_IO);
   spi_master_transceive(cmd);
   _delay_us(40);
   spi_master_transceive(a);
   _delay_us(2);
   spi_master_transceive(b);
-  deselect_device(IO_CS);
+  deselect_device(CS_ID_IO);
 }
 
 void set_led(uint8_t led_n, uint8_t value) {
