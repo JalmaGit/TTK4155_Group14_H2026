@@ -1,6 +1,5 @@
 # List all source files to be compiled; separate with space
 SOURCE_FILES := src/main.c \
-								src/lights.c \
 								src/uart.c \
 								src/xmem.c \
 								src/adc.c \
