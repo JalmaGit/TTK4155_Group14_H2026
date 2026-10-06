@@ -1,7 +1,7 @@
 #include "tests/sram_test.h"
 #include "board.h"
-#include "uart.h"
 #include <stdint.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 void SRAM_test(void) {
