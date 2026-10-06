@@ -1,3 +1,5 @@
+/// This module is responsible for reading data from the ADC.
+
 #ifndef ADC_H
 #define ADC_H
 

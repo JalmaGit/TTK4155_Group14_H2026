@@ -1,13 +1,11 @@
 #include "adc.h"
-#include "common.h"
-#include "lights.h"
+#include "display/oled.h"
 #include "spi.h"
 #include "uart.h"
+#include "ui/menu_items.h"
 #include "user_io.h"
 #include "xmem.h"
 #include <avr/io.h>
-#include <stdint.h>
-#include <stdio.h>
 #include <tests/sram_test.h>
 #include <util/delay.h>
 
@@ -26,15 +24,21 @@ int main() {
   uart_init(MY_UBRR);
   spi_master_init();
 
+  _delay_ms(500);
+
+  xmem_init();
+  adc_init();
+  joy_calibrate(); // Joystick needs to be in neutral position
+
+  _delay_ms(1000);
+
+  oled_init();
+
+  _delay_ms(100);
+
+  menu_main();
+
   while (1) {
-
-    uint8_t output_data[] = {1, 32, 45};
-    uint8_t input_data[3];
-
-    spi_transceive_bytes(3, output_data, input_data, IO_CS);
-
-    printf("%u, %u, %u\r\n", input_data[0], input_data[1], input_data[2]);
-    _delay_ms(1000);
+    _delay_ms(100);
   }
-  // printf("Test 1 byte: 53");
 }
