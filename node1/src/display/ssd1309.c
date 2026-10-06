@@ -20,14 +20,14 @@ void ssd1309_init(void) {
 void send_command(uint8_t command) {
   // Set D/C# LOW
   clear_bit(DISP_DC_PORT, DISP_DC_BIT);
-  spi_transceive_byte(command, 1);
+  spi_transceive_byte(command, CS_ID_DISP);
 }
 
 void send_data(uint8_t data) {
   // Set D/C# HIGH
   set_bit(DISP_DC_PORT, DISP_DC_BIT);
 
-  spi_transceive_byte(data, 1);
+  spi_transceive_byte(data, CS_ID_DISP);
 }
 
 // Commands //
