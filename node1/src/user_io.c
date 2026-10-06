@@ -1,7 +1,6 @@
 #include "user_io.h"
 #include "adc.h"
 #include <stdbool.h>
-#include <stdio.h>
 #include <util/delay.h>
 
 #define JOY_X_CH 1
