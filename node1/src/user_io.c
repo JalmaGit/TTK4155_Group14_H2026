@@ -1,7 +1,7 @@
 #include "user_io.h"
 #include "adc.h"
+#include "spi.h"
 #include <stdbool.h>
-#include <stdio.h>
 #include <util/delay.h>
 
 #define JOY_X_CH 1
@@ -120,4 +120,23 @@ vec2_t pad_read_vec(void) {
   vec2_t pad_pos = pad_read_vec_raw();
   normalize(&pad_pos, false);
   return pad_pos;
+}
+
+// IO-Board AVR
+
+Buttons read_buttons(void) {
+  // TODO: Use own file for CS and pin configs.
+  spi_transceive_byte(0x04, 0);
+  _delay_us(40);
+  uint8_t right = spi_transceive_byte(0x00, 0);
+  _delay_us(2);
+  uint8_t left = spi_transceive_byte(0x00, 0);
+  _delay_us(2);
+  uint8_t nav = spi_transceive_byte(0x00, 0);
+
+  Buttons buttons;
+  buttons.right = right;
+  buttons.left = left;
+  buttons.nav = nav;
+  return buttons;
 }
