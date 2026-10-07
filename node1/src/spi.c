@@ -10,11 +10,11 @@
 
 #define DISP_CS_PIN PB0
 #define IO_CS_PIN PB1
-#define CAN_CS_PIN PB4
+#define MCP2515_CS_PIN PB4
 
 #define IO_CS 0
 #define DISP_CS 1
-#define CAN_CS 2
+#define MCP2515_CS 2
 
 void spi_master_init() {
   /* set MOSI and SCK output, all other input
@@ -50,8 +50,8 @@ void select_device(uint8_t CS) {
   case (DISP_CS):
     clear_bit(PORTB, DISP_CS_PIN);
     break;
-  case (CAN_CS):
-    clear_bit(PORTB, CAN_CS_PIN);
+  case (MCP2515_CS):
+    clear_bit(PORTB, MCP2515);
     break;
   };
 }
@@ -65,8 +65,8 @@ void deselect_device(uint8_t CS) {
   case (DISP_CS):
     set_bit(PORTB, DISP_CS_PIN);
     break;
-  case (CAN_CS):
-    set_bit(PORTB, CAN_CS_PIN);
+  case (MCP2515_CS):
+    set_bit(PORTB, MCP2515);
     break;
   };
 }

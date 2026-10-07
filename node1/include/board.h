@@ -17,7 +17,7 @@
 #define CS_CAN_BIT PB4
 
 // CS IDs, used in `select_device()`
-enum { CS_ID_IO, CS_ID_DISP };
+enum { CS_ID_IO, CS_ID_DISP, CS_ID_MCP2515 };
 
 // CLOCK //
 // System Oscillator clock frequency
