@@ -12,5 +12,7 @@ void spi_transceive_bytes(uint8_t n_bytes, uint8_t *send_data,
 void select_device(uint8_t CS);
 void deselect_device(uint8_t CS);
 uint8_t spi_master_transceive(uint8_t data);
+uint8_t spi_read();
+void spi_write(uint8_t data);
 
 #endif // SPI_H
