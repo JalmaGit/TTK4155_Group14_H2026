@@ -1,26 +1,39 @@
-#include <avr/io.h>
+#include "adc.h"
+#include "board.h"
+#include "display/oled.h"
+#include "spi.h"
+#include "uart.h"
+#include "ui/menu_items.h"
+#include "user_io.h"
+#include "xmem.h"
 #include <util/delay.h>
 #include <stdio.h>
 
 #include "lights.h"
 #include "uart.h"
 
-#include "lights.h"
+int main() {
+  uart_init(MY_UBRR);
+  printf("UART Initialized...");
+  spi_master_init();
 
-int main(void)
-{
-    DDRA |= (1 << PA7);
+  _delay_ms(500);
 
-    USART_Init(MYUBRR);
+  xmem_init();
+  adc_init();
+  led_init();
+  joy_calibrate(); // Joystick needs to be in neutral position
 
-    printf("UART ready!\n");
+  _delay_ms(1000);
 
-    while (1) {
-        int c = getchar();
-        status_light(1);
-        putchar(c);
-        _delay_ms(100);
-        status_light(0);
-    }
+  oled_init();
+  printf("OLED Initialized...");
+
+  _delay_ms(100);
+
+  menu_main();
+
+  while (1) {
+    _delay_ms(100);
+  }
 }
-

@@ -1,0 +1,82 @@
+#include "display/ssd1309.h"
+#include "board.h"
+#include "common.h"
+#include "spi.h"
+#include <avr/io.h>
+#include <stdint.h>
+
+void ssd1309_init(void) {
+  // Set D!C Pin to be Output
+  set_bit(DISP_DC_DDR, DISP_DC_BIT);
+
+  // Segment remap (Flip Horizontally)
+  send_command(0xA1);
+  // Scan Direction (Flip Vertically)
+  send_command(0xC8);
+  // Output Enable
+  send_command(0xAF);
+}
+
+void send_command(uint8_t command) {
+  // Set D/C# LOW
+  clear_bit(DISP_DC_PORT, DISP_DC_BIT);
+  spi_transceive_byte(command, CS_ID_DISP);
+}
+
+void send_data(uint8_t data) {
+  // Set D/C# HIGH
+  set_bit(DISP_DC_PORT, DISP_DC_BIT);
+
+  spi_transceive_byte(data, CS_ID_DISP);
+}
+
+// Commands //
+
+void display_on(void) {
+  send_command(0x81);
+  send_command(0x7F);
+}
+
+void addressing_mode_horizontal(void) {
+  send_command(0x20);
+  send_command(0);
+}
+
+void addressing_mode_vertical(void) {
+  send_command(0x20);
+  send_command(1);
+}
+
+void addressing_mode_page(void) {
+  send_command(0x20);
+  send_command(2);
+}
+
+// This command is only for horizontal or vertical addressing mode.
+void set_column_address(uint8_t start, uint8_t end) {
+  send_command(0x21);
+  send_command(start);
+  send_command(end);
+}
+
+// This command is only for horizontal or vertical addressing mode.
+void set_page_address(uint8_t start, uint8_t end) {
+  send_command(0x22);
+  send_command(start);
+  send_command(end);
+}
+
+// Set Page Address for Page Addressing mode
+void set_page(uint8_t page) {
+  uint8_t command = 0b10110000;
+  command = command | (page & 0b00001111);
+  send_command(command);
+}
+
+// Set Column Address for Page Addressing Mode
+void set_column(uint8_t col) {
+  uint8_t cmd_low = 0x00 | (col & 0x0F);
+  uint8_t cmd_high = 0x10 | (col >> 4);
+  send_command(cmd_low);
+  send_command(cmd_high);
+}
