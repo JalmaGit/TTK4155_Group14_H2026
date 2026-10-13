@@ -7,7 +7,7 @@ SOURCE_FILES := src/main.c \
 								src/display/oled.c \
 								src/display/ssd1309.c \
 								src/spi.c \
-								src/mcp2515_can.c
+								src/mcp2515_can.c \
 								src/ui/menu.c \
 								src/ui/menu_view.c \
 								src/tests/sram_test.c \
