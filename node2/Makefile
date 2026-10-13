@@ -1,10 +1,14 @@
 LDSCRIPT = sam/flash.ld
-BOOTUP = sam/sam3x/source/exceptions.c sam/sam3x/source/startup_sam3x.c sam/sam3x/source/system_sam3x.c
+BOOTUP = sam/sam3x/source/exceptions.c \
+		sam/sam3x/source/startup_sam3x.c \
+		sam/sam3x/source/system_sam3x.c
 MCUTYPE = __SAM3X8E__
 # List all source files (i.e. .c files) to be compiled; separate with whitespace.
 # In particular, remember to add the UART and CAN starter files.
 # Use relative file paths and a backslash before newline.
 # Do NOT use a backslash after the last file.
+TEST_FILES := $(wildcard src/tests/*.c)
+
 SOURCE_FILES = \
 	$(BOOTUP) \
 	src/main.c \
@@ -14,9 +18,11 @@ SOURCE_FILES = \
 
 
 # Feel free to ignore anything below this line
-VPATH:= $(dir $(SOURCE_FILES))
 BUILD_DIR := build
-OBJS := $(patsubst %.c, $(BUILD_DIR)/%$(ARCH)$(DEBUG).o, $(notdir $(SOURCE_FILES)))
+DEP_DIR := $(BUILD_DIR)/deps
+
+OBJS := $(patsubst %.c,$(BUILD_DIR)/%.o,$(SOURCE_FILES))
+DEPS := $(patsubst %.c,$(DEP_DIR)/%.d,$(SOURCE_FILES))
 #Tools
 CC:=arm-none-eabi-gcc
 LD:=arm-none-eabi-gcc
@@ -38,9 +44,9 @@ CFLAGS += -Iinclude
 $(BUILD_DIR):
 	mkdir $(BUILD_DIR)
 
-$(BUILD_DIR)/%.o: %.c | $(BUILD_DIR)
-	$(CC) -c $(CFLAGS) $< -o $@
-	#$(CC) -MM $(CFLAGS) $< > $@.d
+$(BUILD_DIR)/%.o: %.c
+	@mkdir -p $(dir $@) $(dir $(DEP_DIR)/$*.d)
+	$(CC) -c $(CFLAGS) -MF $(DEP_DIR)/$*.d -MT $@ $< -o $@
 
 $(BUILD_DIR)/%.o : %.s | $(BUILD_DIR)
 	$(AS) $< -o $@
@@ -69,5 +75,5 @@ flash: $(ELF)
 
 
 # pull in dependencies
--include	$(OBJS:.o=.d)
+-include $(DEPS)
 
