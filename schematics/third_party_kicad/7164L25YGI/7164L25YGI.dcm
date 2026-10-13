@@ -1,9 +1,0 @@
-EESchema-DOCLIB  Version 2.0
-#
-$CMP 7164L25YGI
-D The 7164 5V CMOS SRAM is organized as 8K x 8. The 7164 offers a reduced power standby mode.  The low-power (L) version also offers a battery backup data retention capability at power supply levels as low as 2V. All inputs and outputs of the IDT7164 are TTL-compatible and operation is from a single 5V supply, simplifying system designs. Fully static asynchronous circuitry is used, requiring no clocks or refreshing for operation. Military grade product is available.
-K
-F https://www.idt.com/document/dst/7164sl-data-sheet
-$ENDCMP
-#
-#End Doc Library
