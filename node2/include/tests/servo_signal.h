@@ -3,5 +3,4 @@
 
 void test_servo_signal();
 
-#endif //SERVO_SIGNAL_H
-
+#endif // SERVO_SIGNAL_H
