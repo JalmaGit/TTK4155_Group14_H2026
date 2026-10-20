@@ -73,6 +73,10 @@ flash: $(ELF)
 #	if pgr openocd; then killall -s 9 openocd; fi
 	openocd -f sam/openocd.cfg -c "program ${BUILD_DIR}/main.elf verify reset exit"
 
+.PHONY: compiledb
+compiledb:
+	bear -- $(MAKE) clean $(BUILD_DIR)/main.elf
+
 .PHONY: fmt
 fmt:
 	find src include -type f \( -name '*.c' -o -name '*.h' \) -exec clang-format -i {} +
