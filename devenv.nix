@@ -14,7 +14,7 @@
 
   packages = [
     # nRF52840: ARM Cortex-M cross compiler and Nordic tooling.
-    #pkgs.gcc-arm-embedded
+    pkgs.gcc-arm-embedded
     #pkgs.nrf-command-line-tools
     #pkgs.nrfutil
     #pkgs.nrf5-sdk
