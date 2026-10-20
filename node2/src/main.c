@@ -12,6 +12,7 @@
  * apt or your favorite package manager.
  */
 #include "uart.h"
+#include "tests/servo_signal.h"
 
 int main()
 {
@@ -25,7 +26,9 @@ int main()
 
     //Uncomment after including uart above
     uart_init(SystemCoreClock, 9600); // SystemCoreClock = 84 000 000
-    printf("Hello World\n\r");
+    printf("UART initialized\n\r");
+
+    test_servo_signal();
 
     while (1)
     {

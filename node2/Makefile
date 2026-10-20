@@ -16,7 +16,7 @@ SOURCE_FILES = \
 	src/can.c \
 	src/time.c 
 
-
+SOURCE_FILES += $(TEST_FILES)
 # Feel free to ignore anything below this line
 BUILD_DIR := build
 DEP_DIR := $(BUILD_DIR)/deps
