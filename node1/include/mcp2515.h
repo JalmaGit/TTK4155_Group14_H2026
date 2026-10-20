@@ -57,15 +57,32 @@ Copyright 2003 Kimberly Otten Software Consulting
 #define MCP_CANINTE 0x2B
 #define MCP_CANINTF 0x2C
 #define MCP_EFLG 0x2D
+#define MCP_TXRTCTRL 0x0D
 #define MCP_TXB0CTRL 0x30
+#define MCP_TXB0SIDH 0x31
+#define MCP_TXB0SIDL 0x32
+#define MCP_TXB0DLC 0x35
+#define MCP_TXB0DM_START_ADDRESS 0x36
 #define MCP_TXB1CTRL 0x40
+#define MCP_TXB1SIDH 0x41
+#define MCP_TXB1SIDL 0x42
+#define MCP_TXB1DLC 0x45
+#define MCP_TXB1DM_START_ADDRESS 0x46
 #define MCP_TXB2CTRL 0x50
+#define MCP_TXB2SIDH 0x51
+#define MCP_TXB2SIDL 0x52
+#define MCP_TXB2DLC 0x55
+#define MCP_TXB2DM_START_ADDRESS 0x56
 #define MCP_RXB0CTRL 0x60
 #define MCP_RXB0SIDH 0x61
 #define MCP_RXB0SIDL 0x62
+#define MCP_RXB0DLC 0x65
+#define MCP_RXB0DM_START_ADDRESS 0x66
 #define MCP_RXB1CTRL 0x70
 #define MCP_RXB1SIDH 0x71
 #define MCP_RXB1SIDL 0x72
+#define MCP_RXB1DLC 0x75
+#define MCP_RXB1DM_START_ADDRESS 0x76
 
 #define MCP_TX_INT 0x1C   // Enable all transmit interrupts
 #define MCP_TX01_INT 0x0C // Enable TXB0 and TXB1 interrupts
