@@ -2,8 +2,9 @@
 #define BOARD_H
 
 
-// --- TEST -- //
+// --- Servo -- //
 #define SERVO_SIGNAL_PIN PIO_PB13
+#define SERVO_SIGNAL_BLOCK PIOB
 
 
 #endif //BOARD_H

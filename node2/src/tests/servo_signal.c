@@ -10,16 +10,16 @@ oscilloscope
 
 void test_servo_signal() {
 
-  PIOB->PIO_CODR = SERVO_SIGNAL_PIN; // Set putput LOW
-  PIOB->PIO_OER = SERVO_SIGNAL_PIN;  // Enable output
-  PIOB->PIO_PER = SERVO_SIGNAL_PIN;  // Give PIO control of the pin
+  SERVO_SIGNAL_BLOCK->PIO_CODR = SERVO_SIGNAL_PIN; // Set putput LOW
+  SERVO_SIGNAL_BLOCK->PIO_OER = SERVO_SIGNAL_PIN;  // Enable output
+  SERVO_SIGNAL_BLOCK->PIO_PER = SERVO_SIGNAL_PIN;  // Give PIO control of the pin
 
   for (int i = 0; i <= 20; i++) {
-    PIOB->PIO_SODR = SERVO_SIGNAL_PIN; // Set HIGH
+    SERVO_SIGNAL_BLOCK->PIO_SODR = SERVO_SIGNAL_PIN; // Set HIGH
     printf("Servo SIG: HIGH\r\n");
     time_spinFor(msecs(1000));
 
-    PIOB->PIO_CODR = SERVO_SIGNAL_PIN; // Set LOW
+    SERVO_SIGNAL_BLOCK->PIO_CODR = SERVO_SIGNAL_PIN; // Set LOW
     printf("Servo SIG: LOW\r\n");
     time_spinFor(msecs(1000));
   }
