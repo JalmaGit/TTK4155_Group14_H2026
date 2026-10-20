@@ -46,4 +46,8 @@ enum { CS_ID_IO, CS_ID_DISP, CS_ID_CAN };
 #define DISP_DC_BIT PD0
 #define DISP_DC_PORT PORTD
 
+// --- MCP2515_CAN --- //
+#define CAN_INT_PORT DDRB
+#define CAN_INT_PIN PD2
+
 #endif // BOARD_H_
