@@ -11,7 +11,8 @@ SOURCE_FILES := src/main.c \
 								src/ui/menu.c \
 								src/ui/menu_view.c \
 								src/tests/sram_test.c \
-								src/tests/led_test.c
+								src/tests/led_test.c \
+								src/tests/can_bus_test.c
 
 include ../common/Makefile
 
