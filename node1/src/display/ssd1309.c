@@ -6,6 +6,10 @@
 #include <stdint.h>
 
 void ssd1309_init(void) {
+  // Set display reset high forever (never reset)
+  set_bit(DISP_RESET_DDR, DISP_RESET_BIT);
+  set_bit(DISP_RESET_PORT, DISP_RESET_BIT);
+
   // Set D!C Pin to be Output
   set_bit(DISP_DC_DDR, DISP_DC_BIT);
 

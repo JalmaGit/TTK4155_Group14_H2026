@@ -46,4 +46,8 @@ enum { CS_ID_IO, CS_ID_DISP };
 #define DISP_DC_BIT PD0
 #define DISP_DC_PORT PORTD
 
+#define DISP_RESET_DDR DDRD
+#define DISP_RESET_BIT PD1
+#define DISP_RESET_PORT PORTD
+
 #endif // BOARD_H_
