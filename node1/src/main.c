@@ -34,8 +34,4 @@ int main() {
   _delay_ms(100);
 
   menu_main();
-
-  while (1) {
-    can_bus_test();
-  }
 }
