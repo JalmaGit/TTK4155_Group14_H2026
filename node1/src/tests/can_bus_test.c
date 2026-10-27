@@ -10,6 +10,7 @@ uint8_t iter = 0;
 
 void init_can_bus_test(void) {
   uint8_t init_result = can_init();
+  enable_loop_back_mode();
 
   printf("CAN init result: %i \r\n", init_result);
 
