@@ -13,17 +13,15 @@ void init_can_bus_test(void) {
 
   printf("CAN init result: %i \r\n", init_result);
 
-  can_transmit_message.ID = 0x0001;
   can_transmit_message.data_length = 1;
 }
 
-void can_bus_test(void) {
-  enable_loop_back_mode();
+void can_bus_test_message() {
   can_transmit_message.data[0] = iter;
   can_transmit(&can_transmit_message);
   _delay_ms(100);
   can_received_message = can_wait_receive();
-  _delay_ms(500);
+  _delay_ms(100);
   printf("Transmited Data: \r\n");
   printf("Message ID: %" PRIu16 " \r\n", can_transmit_message.ID);
   printf("Message Length: %i \r\n", can_transmit_message.data_length);
@@ -39,9 +37,18 @@ void can_bus_test(void) {
   printf("_________________________________\r\n");
 
   iter++;
+}
+
+void can_bus_test(void) {
+  can_transmit_message.ID = 0x0001;
+  clear_transmit_buffers();
+  enable_loop_back_mode();
+  can_bus_test_message();
   disable_loop_back_mode();
 }
 
 void can_bus_test_normal(void) {
-  // TODO: Normal mode between node1 and node2
+  can_transmit_message.ID = 0x0006;
+  clear_transmit_buffers();
+  can_bus_test_message();
 }
