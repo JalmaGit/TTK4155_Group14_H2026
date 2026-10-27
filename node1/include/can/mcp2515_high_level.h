@@ -9,6 +9,7 @@ struct CAN_Message can_wait_receive();
 struct CAN_Debug_Message can_debug();
 void enable_loop_back_mode();
 void disable_loop_back_mode();
+void clear_transmit_buffers();
 uint8_t can_init();
 
 #endif // CAN_HIGH_LEVEL_H
