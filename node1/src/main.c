@@ -1,14 +1,11 @@
 #include "adc.h"
 #include "board.h"
-#include "can/mcp2515_high_level.h"
-#include "common.h"
 #include "display/oled.h"
 #include "spi.h"
 #include "uart.h"
 #include "ui/menu_items.h"
 #include "user_io.h"
 #include "xmem.h"
-#include <stdint.h>
 #include <stdio.h>
 #include <util/delay.h>
 
@@ -17,7 +14,9 @@ int main() {
   printf("UART Initialized...\r\n");
   _delay_ms(500);
   printf("Waited 500ms... \r\n");
-  /*
+
+  init_can_bus_test();
+
   spi_master_init();
 
   _delay_ms(500);
@@ -30,45 +29,13 @@ int main() {
   _delay_ms(1000);
 
   oled_init();
-  printf("OLED Initialized...");
+  printf("OLED Initialized... \r\n");
 
   _delay_ms(100);
 
   menu_main();
-  */
-
-  uint8_t init_result = can_init();
-
-  printf("CAN init result: %i \r\n", init_result);
-
-  struct CAN_Message can_received_message;
-
-  struct CAN_Message can_transmit_message;
-  can_transmit_message.ID = 0x0001;
-  can_transmit_message.data_length = 1;
-
-  uint8_t iter = 200;
 
   while (1) {
-    can_transmit_message.data[0] = iter;
-    can_transmit(&can_transmit_message);
-    _delay_ms(100);
-    can_received_message = can_wait_receive();
-    _delay_ms(500);
-    printf("Transmited Data: \r\n");
-    printf("Message ID: %" PRIu16 " \r\n", can_transmit_message.ID);
-    printf("Message Length: %i \r\n", can_transmit_message.data_length);
-    printf("Message Data: %i \r\n", can_transmit_message.data[0]);
-
-    printf("\r\n");
-
-    printf("Received Data: \r\n");
-    printf("Message ID: %" PRIu16 " \r\n", can_received_message.ID);
-    printf("Message Length: %i \r\n", can_received_message.data_length);
-    printf("Message Data: %i \r\n", can_received_message.data[0]);
-
-    printf("_________________________________\r\n");
-
-    iter++;
+    can_bus_test();
   }
 }
