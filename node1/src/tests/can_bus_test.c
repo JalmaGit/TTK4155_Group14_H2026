@@ -18,6 +18,7 @@ void init_can_bus_test(void) {
 }
 
 void can_bus_test(void) {
+  enable_loop_back_mode();
   can_transmit_message.data[0] = iter;
   can_transmit(&can_transmit_message);
   _delay_ms(100);
@@ -38,4 +39,5 @@ void can_bus_test(void) {
   printf("_________________________________\r\n");
 
   iter++;
+  disable_loop_back_mode();
 }
