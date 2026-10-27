@@ -39,6 +39,9 @@ void select_device(uint8_t CS) {
   case (CS_ID_DISP):
     clear_bit(CS_PORT, CS_DISP_BIT);
     break;
+  case (CS_ID_CAN):
+    clear_bit(PORTB, CS_CAN_BIT);
+    break;
   };
 }
 
@@ -50,6 +53,9 @@ void deselect_device(uint8_t CS) {
     break;
   case (CS_ID_DISP):
     set_bit(CS_PORT, CS_DISP_BIT);
+    break;
+  case (CS_ID_CAN):
+    set_bit(PORTB, CS_CAN_BIT);
     break;
   };
 }

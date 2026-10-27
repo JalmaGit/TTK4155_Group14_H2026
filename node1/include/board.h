@@ -17,7 +17,7 @@
 #define CS_CAN_BIT PB4
 
 // CS IDs, used in `select_device()`
-enum { CS_ID_IO, CS_ID_DISP };
+enum { CS_ID_IO, CS_ID_DISP, CS_ID_CAN };
 
 // CLOCK //
 // System Oscillator clock frequency
@@ -45,9 +45,13 @@ enum { CS_ID_IO, CS_ID_DISP };
 #define DISP_DC_DDR DDRD
 #define DISP_DC_BIT PD0
 #define DISP_DC_PORT PORTD
-
 #define DISP_RESET_DDR DDRD
 #define DISP_RESET_BIT PD1
 #define DISP_RESET_PORT PORTD
+
+// --- MCP2515_CAN --- //
+#define CAN_INT_PORT DDRD
+#define CAN_INT_PIN_PORT PIND
+#define CAN_INT_PIN PD2
 
 #endif // BOARD_H_
