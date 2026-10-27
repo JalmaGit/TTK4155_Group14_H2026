@@ -1,5 +1,4 @@
-#include "common.h"
-#include "mcp2515_can.h"
+#include "can/mcp2515_high_level.h"
 #include "serialize.h"
 #include "user_io.h"
 #include <stdio.h>

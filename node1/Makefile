@@ -7,13 +7,15 @@ SOURCE_FILES := src/main.c \
 								src/display/oled.c \
 								src/display/ssd1309.c \
 								src/spi.c \
-								src/mcp2515_can.c \
 								src/game/game.c \
+								src/can/mcp2515_low_level.c \
+								src/can/mcp2515_high_level.c \
+								src/can/config.c \
 								src/ui/menu.c \
 								src/ui/menu_view.c \
 								src/tests/sram_test.c \
 								src/tests/led_test.c \
-								src/tests/can_bus_test.c
+			 					src/tests/can_bus_test.c
 
 include ../common/Makefile
 
