@@ -132,9 +132,9 @@ void receive_configure() {
   low_priority_message_configure();
 }
 
-void mode_configure() {
+void mode_configure(uint8_t MODE) {
   uint8_t CANCTRL_MASK = 0b11101000;
-  uint8_t CANCTRL_BYTE = 0b01000000;
+  uint8_t CANCTRL_BYTE = MODE;
 
   bit_modify(MCP_CANCTRL, CANCTRL_MASK, CANCTRL_BYTE);
 }
