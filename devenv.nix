@@ -32,6 +32,8 @@
 
     # `bear -- make` to generate compile_commands.json
     pkgs.bear
+
+    pkgs.picocom
   ];
 
   scripts.clangd.exec = ''
