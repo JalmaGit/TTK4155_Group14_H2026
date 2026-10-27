@@ -1586,6 +1586,18 @@
 		(uuid "bb74fb5f-638a-4b81-b0b3-4b0d3fc1795b")
 	)
 	(junction
+		(at 209.55 36.83)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "11a0613e-cd8d-404b-9c8b-0b4f023d8009")
+	)
+	(junction
+		(at 209.55 41.91)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "1c7f3a33-5e52-46e1-a75f-4e4bdeb36990")
+	)
+	(junction
 		(at 194.31 83.82)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1610,10 +1622,22 @@
 		(uuid "899395df-cec3-4e4e-afee-179369b977f9")
 	)
 	(junction
+		(at 218.44 35.56)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "aea9ecd6-1f42-43ba-b4ca-102eaeafb9ef")
+	)
+	(junction
 		(at 212.09 93.98)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "cd605178-223f-4b8f-b7c9-5e72137a3b4d")
+	)
+	(junction
+		(at 218.44 43.18)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f4e397b6-af0d-4596-b078-3510851b4048")
 	)
 	(wire
 		(pts
@@ -1624,6 +1648,26 @@
 			(type default)
 		)
 		(uuid "00126d38-dd34-415c-9587-343cee7c08ef")
+	)
+	(wire
+		(pts
+			(xy 207.01 41.91) (xy 209.55 41.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "03d63990-e5bb-4019-b131-f4dca34189f5")
+	)
+	(wire
+		(pts
+			(xy 207.01 36.83) (xy 209.55 36.83)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "05756358-da4e-4f3a-af5f-aaf76ac055c8")
 	)
 	(wire
 		(pts
@@ -1654,6 +1698,16 @@
 			(type default)
 		)
 		(uuid "173eb52e-1961-4e43-9cc9-c1bbf994e94f")
+	)
+	(wire
+		(pts
+			(xy 218.44 35.56) (xy 214.63 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1e04a01b-3888-4c5b-8ea0-ff1d64d8e951")
 	)
 	(wire
 		(pts
@@ -1704,6 +1758,16 @@
 			(type default)
 		)
 		(uuid "2223e756-09f6-4c95-ab04-f827f11786ab")
+	)
+	(wire
+		(pts
+			(xy 218.44 43.18) (xy 214.63 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "229146b3-290e-4984-ab4f-c65432a636c7")
 	)
 	(wire
 		(pts
@@ -1787,6 +1851,16 @@
 	)
 	(wire
 		(pts
+			(xy 214.63 41.91) (xy 209.55 41.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "68cd99d8-a98c-4d04-b7b7-d1023ce24767")
+	)
+	(wire
+		(pts
 			(xy 194.31 92.71) (xy 194.31 93.98)
 		)
 		(stroke
@@ -1804,6 +1878,16 @@
 			(type default)
 		)
 		(uuid "6b91a6df-6ebe-4957-b91b-47c188e027dd")
+	)
+	(wire
+		(pts
+			(xy 218.44 41.91) (xy 218.44 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "72f26f64-4c68-4d4d-8e69-2d9eba975c67")
 	)
 	(wire
 		(pts
@@ -1867,6 +1951,16 @@
 	)
 	(wire
 		(pts
+			(xy 214.63 43.18) (xy 214.63 41.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a1a6fede-6860-4215-8350-b78ccb7faff5")
+	)
+	(wire
+		(pts
 			(xy 120.65 101.6) (xy 124.46 101.6)
 		)
 		(stroke
@@ -1887,6 +1981,36 @@
 	)
 	(wire
 		(pts
+			(xy 209.55 36.83) (xy 214.63 36.83)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b20717ea-314f-48a3-a7f5-61bb287d60fd")
+	)
+	(wire
+		(pts
+			(xy 214.63 35.56) (xy 214.63 36.83)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b7ab43d9-aded-49fb-985c-8b830a2ff280")
+	)
+	(wire
+		(pts
+			(xy 209.55 45.72) (xy 209.55 41.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bf42250a-e2e8-41fe-b61d-8081b7af3e4b")
+	)
+	(wire
+		(pts
 			(xy 120.65 104.14) (xy 124.46 104.14)
 		)
 		(stroke
@@ -1897,6 +2021,16 @@
 	)
 	(wire
 		(pts
+			(xy 218.44 36.83) (xy 218.44 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ce3f2708-d07c-4d26-bc87-a87666e0497d")
+	)
+	(wire
+		(pts
 			(xy 212.09 95.25) (xy 212.09 93.98)
 		)
 		(stroke
@@ -1904,6 +2038,16 @@
 			(type default)
 		)
 		(uuid "d726fce1-da00-4e0d-8ed4-e46d052e9cd7")
+	)
+	(wire
+		(pts
+			(xy 209.55 33.02) (xy 209.55 36.83)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d82775d1-6976-4025-8094-5cb2463289a2")
 	)
 	(wire
 		(pts
@@ -1947,7 +2091,7 @@
 	)
 	(global_label "CANH{slash} --"
 		(shape input)
-		(at 207.01 36.83 0)
+		(at 209.55 33.02 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1957,7 +2101,7 @@
 		)
 		(uuid "35296d37-ba38-4d32-a00a-0bf03c0789b5")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 220.4577 36.83 0)
+			(at 222.9977 33.02 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2091,7 +2235,7 @@
 	)
 	(global_label "CANL{slash} --"
 		(shape input)
-		(at 207.01 41.91 0)
+		(at 209.55 45.72 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2101,7 +2245,7 @@
 		)
 		(uuid "b1e71582-9637-4cba-9679-bf3657fd6f4a")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 220.1553 41.91 0)
+			(at 222.6953 45.72 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2974,6 +3118,88 @@
 			(project "circuit"
 				(path "/a0fbafcd-7e01-42a2-97f7-971c6d70f3e6/4c96d9dc-1205-436f-ae58-98b88ae70299"
 					(reference "Y2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 218.44 39.37 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "85f1c5c5-a8ae-47db-a93d-14fcf3a9aca6")
+		(property "Reference" "R6"
+			(at 220.98 38.0999 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "120"
+			(at 220.98 40.6399 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_DIP:DIP-8_W7.62mm"
+			(at 216.662 39.37 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 218.44 39.37 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 218.44 39.37 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "bdd318dd-1a3e-4430-884d-6e1573042450")
+		)
+		(pin "2"
+			(uuid "8b740f16-e1dc-433b-9aec-736aab8a02fb")
+		)
+		(instances
+			(project "circuit"
+				(path "/a0fbafcd-7e01-42a2-97f7-971c6d70f3e6/4c96d9dc-1205-436f-ae58-98b88ae70299"
+					(reference "R6")
 					(unit 1)
 				)
 			)
