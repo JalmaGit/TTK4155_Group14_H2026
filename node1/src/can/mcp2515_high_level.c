@@ -148,6 +148,13 @@ void can_transmit(struct CAN_Message *message_data) {
 
 void enable_loop_back_mode() { mode_configure(CAN_LOOP_BACK_MODE); }
 void disable_loop_back_mode() { mode_configure(CAN_NORMAL_MODE); }
+void clear_transmit_buffers() {
+  uint8_t TXREQ_MASK = 0b00001000;
+
+  bit_modify(MCP_TXB0CTRL, TXREQ_MASK, 0x00);
+  bit_modify(MCP_TXB1CTRL, TXREQ_MASK, 0x00);
+  bit_modify(MCP_TXB2CTRL, TXREQ_MASK, 0x00);
+}
 
 uint8_t can_init() {
   uint8_t value;
