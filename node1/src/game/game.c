@@ -8,7 +8,7 @@ void send_joystick_data() {
   vec2_t joy_vec = joy_read_vec();
 
   // TODO: Move joystick data message to common.
-  struct CAN_Message msg = {0x2,
+  struct CAN_Message msg = {0x7,
                             2,
                             {
                                 float_to_byte(joy_vec.x, -1, 1),
