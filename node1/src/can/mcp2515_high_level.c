@@ -147,6 +147,7 @@ void can_transmit(struct CAN_Message *message_data) {
 }
 
 void enable_loop_back_mode() { mode_configure(CAN_LOOP_BACK_MODE); }
+void disable_loop_back_mode() { mode_configure(CAN_NORMAL_MODE); }
 
 uint8_t can_init() {
   uint8_t value;
