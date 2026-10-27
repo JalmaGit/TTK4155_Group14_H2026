@@ -41,3 +41,7 @@ void can_bus_test(void) {
   iter++;
   disable_loop_back_mode();
 }
+
+void can_bus_test_normal(void) {
+  // TODO: Normal mode between node1 and node2
+}
