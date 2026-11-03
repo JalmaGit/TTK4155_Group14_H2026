@@ -4,6 +4,7 @@
 #define MENU_ITEMS_H_
 
 #include "display/oled.h"
+#include "game/game.h"
 #include "tests/can_bus_test.h"
 #include "tests/led_test.h"
 #include "ui/menu.h"
@@ -78,6 +79,7 @@ void menu_main(void) {
   for (;;) {
     switch (menu_run("Main", items, 4, &selected)) {
     case MAIN_MENU_START:
+      game_start();
       break;
     case MAIN_MENU_TESTS:
       menu_tests();
