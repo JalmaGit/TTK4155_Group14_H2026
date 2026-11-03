@@ -1,8 +1,11 @@
 #include "can.h"
 #include "sam.h"
 #include "uart.h"
+#include "servo.h"
 #include <stdarg.h>
 #include <stdio.h>
+#include "tests/servo_tests.h"
+#include "game/game.h"
 
 /*
  * Remember to update the Makefile with the (relative) path to the uart.c file.
@@ -36,11 +39,12 @@ int main() {
   can_values.brp = 11;
   can_values.smp = 0;
 
-  can_init(can_values, 1);
+  can_init(can_values, 0);
+  servo_init();
 
   while (1) {
-    // TODO: listen to pings and joystick data
-
-    /* code */
+    // TODO: listen to pings
+    game_loop();
+    
   }
 }
