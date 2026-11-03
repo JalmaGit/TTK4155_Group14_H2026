@@ -17,6 +17,8 @@ void can_read_high_priority_message(struct CAN_Message *message_data) {
 
   uint8_t receive_buffer_length_code = can_read(MCP_RXB0DLC);
   message_data->data_length = receive_buffer_length_code & 0x0F;
+  if (message_data->data_length > 8)
+    message_data->data_length = 8;
 
   uint8_t RXB0DM_ADRESS = MCP_RXB0DM_START_ADDRESS;
   for (uint8_t i = 0; i < message_data->data_length; i++) {
@@ -36,6 +38,8 @@ void can_read_low_priority_message(struct CAN_Message *message_data) {
 
   uint8_t receive_buffer_length_code = can_read(MCP_RXB1DLC);
   message_data->data_length = receive_buffer_length_code & 0x0F;
+  if (message_data->data_length > 8)
+    message_data->data_length = 8;
 
   uint8_t RXB1DM_ADRESS = MCP_RXB1DM_START_ADDRESS;
   for (uint8_t i = 0; i < message_data->data_length; i++) {
@@ -134,6 +138,9 @@ void can_transmit_buffer2_write(struct CAN_Message *message_data) {
 void can_transmit(struct CAN_Message *message_data) {
   uint8_t buffers_status = read_status();
 
+  if (message_data->data_length > 8)
+    message_data->data_length = 8;
+
   if (!test_bit(buffers_status, 2)) {
     bit_modify(MCP_CANINTF, MCP_TX0IF, 0x00);
     can_transmit_buffer0_write(message_data);
@@ -148,12 +155,21 @@ void can_transmit(struct CAN_Message *message_data) {
 
 void enable_loop_back_mode() { mode_configure(CAN_LOOP_BACK_MODE); }
 void disable_loop_back_mode() { mode_configure(CAN_NORMAL_MODE); }
+
 void clear_transmit_buffers() {
   uint8_t TXREQ_MASK = 0b00001000;
 
   bit_modify(MCP_TXB0CTRL, TXREQ_MASK, 0x00);
   bit_modify(MCP_TXB1CTRL, TXREQ_MASK, 0x00);
   bit_modify(MCP_TXB2CTRL, TXREQ_MASK, 0x00);
+  bit_modify(MCP_CANCTRL, ABORT_TX, 0x00);
+
+  uint16_t timeout = 1000;
+  while (((can_read(MCP_TXB0CTRL) & TXREQ_MASK) ||
+          (can_read(MCP_TXB1CTRL) & TXREQ_MASK) ||
+          (can_read(MCP_TXB2CTRL) & TXREQ_MASK)) &&
+         --timeout) {
+  }
 }
 
 uint8_t can_init() {
