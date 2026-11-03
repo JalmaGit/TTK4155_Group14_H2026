@@ -15,10 +15,12 @@ SOURCE_FILES = \
 	src/uart.c \
 	src/can.c \
 	src/time.c \
-	src/servo.c\
-	src/game/game.c\
-	../common/src/serialize.c
+	src/servo.c \
+	src/game/game.c
+	
+include ../common/Makefile
 
+SOURCE_FILES += $(COMMON_SOURCES)
 SOURCE_FILES += $(TEST_FILES)
 # Feel free to ignore anything below this line
 BUILD_DIR := build
@@ -39,7 +41,7 @@ CFLAGS:= -mcpu=cortex-m3 -mthumb -g -std=c11 -MMD
 CFLAGS+= -I sam -I sam/sam3x/include -I sam/sam3x/source -I sam/cmsis -I .
 CFLAGS+= -D $(MCUTYPE)
 CFLAGS += -Iinclude
-CFLAGS += -I../common/include
+CFLAGS += -I$(COMMON_INCLUDE)
 # CFLAGS += -Iinclude -I../lib
 
 
