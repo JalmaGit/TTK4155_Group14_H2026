@@ -1,4 +1,6 @@
+#include "game/game.h"
 #include "can/mcp2515_high_level.h"
+#include "game/game_ui.h"
 #include "serialize.h"
 #include "user_io.h"
 #include <stdio.h>
@@ -19,9 +21,14 @@ void send_joystick_data() {
 }
 
 void game_loop() {
+  int score = 0;
   while (1) {
     send_joystick_data();
 
+    // TMP
+    score += 1;
+
+    game_draw(score);
     _delay_ms(1000);
   }
 }
