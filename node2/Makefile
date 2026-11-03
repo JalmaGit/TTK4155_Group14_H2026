@@ -15,7 +15,8 @@ SOURCE_FILES = \
 	src/uart.c \
 	src/can.c \
 	src/time.c \
-	src/servo.c
+	src/servo.c\
+	src/game/game.c
 
 SOURCE_FILES += $(TEST_FILES)
 # Feel free to ignore anything below this line

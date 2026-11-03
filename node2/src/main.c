@@ -1,9 +1,11 @@
 #include "can.h"
 #include "sam.h"
 #include "uart.h"
+#include "servo.h"
 #include <stdarg.h>
 #include <stdio.h>
 #include "tests/servo_tests.h"
+#include "game/game.h"
 
 /*
  * Remember to update the Makefile with the (relative) path to the uart.c file.
@@ -29,7 +31,6 @@ int main() {
   uart_init(SystemCoreClock, 9600); // SystemCoreClock = 84 000 000
   printf("UART initialized\n\r");
 
-  test_pwm();
   CanInit can_values;
   can_values.phase1 = 6;
   can_values.phase2 = 7;
@@ -39,10 +40,12 @@ int main() {
   can_values.smp = 0;
 
   can_init(can_values, 1);
+  servo_init();
 
   while (1) {
-    // TODO: listen to pings and joystick data
-
-    /* code */
+    // TODO: listen to pings
+    // Read Joystick data
+    game_start();
+    
   }
 }
