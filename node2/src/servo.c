@@ -11,40 +11,29 @@
 #define SERVO_PERIOD PWM_CPRD
 #define SERVO_DUTY_CYCLE PWM_CDTY
 #define SERVO_UPDATE_DUTY_CYCLE PWM_CDTYUPD
-#define DUTYCYCLE_MAX_LEFT 2625
-#define DUTYCYCLE_CENTER 3938
-#define DUTYCYCLE_MAX_RIGHT 5250
-
-Direction get_direction(uint8_t joystick);
+#define DUTYCYCLE_MAX_LEFT 2625     // Makes the duty cycle be 1.0ms
+#define DUTYCYCLE_CENTER 3938       // Makes the duty cycle be 1.5ms
+#define DUTYCYCLE_MAX_RIGHT 5250    // Makes the duty cycle be 2.0ms
+#define CLOCK_DIVIDER 52500         // Makes the pwm clock go 
 
 /*
 Servo period = 20ms = 50Hz
 On-time 0.9 - 2.1ms
-We need X = 32 and CPRD = 52 500 for T_period
-and X = 32 and CDTY = 48562 for T_pulse 
 
 Servo positions:
     0 degrees (left): 1.0ms
     90 degrees (down): 1.5ms
     180 degrees (right): 2.0ms
-
-Need to use PIN44 and PIN45 on the shield ??? The website says to use pin D21?!?!
-
-Important registers:
-    PWM->PWM_CH_NUn.PWM_CMR PWM Channel Mode Register. Here CPRE decides the division of the MCK?
-    PWM->PWM_CH_NUn.PWM_CPRD PWM Channel Period Register
-    PWM->PWM_CH_NUn.PWM_CDTY PWM Channel Duty Cycle
 */
 
 void servo_init(){
     // Use SAM3X pin PB13, Peripheral B, PWMH1
      
     PMC->PMC_PCER1 = (1U << (ID_PWM - 32)); // Enable peripheral clock signal
-    // PMC->PMC_PCER0 = (1U << ID_PIOB); // Enables peripheral B clock
     PWM->PWM_CH_NUM[SERVO_CHANNEL].PWM_CMR = 5; // Sets X = 32 as the prescaler
     
-    PWM->PWM_CH_NUM[SERVO_CHANNEL].SERVO_PERIOD = (0b1100110100010100); // Sets 52 500 as clock divider
-    PWM->PWM_CH_NUM[SERVO_CHANNEL].SERVO_DUTY_CYCLE = (0b0000111101100010); // 3938, makes the duty cycle be 1.5ms
+    PWM->PWM_CH_NUM[SERVO_CHANNEL].SERVO_PERIOD = CLOCK_DIVIDER; // Sets 52 500 as clock divider
+    PWM->PWM_CH_NUM[SERVO_CHANNEL].SERVO_DUTY_CYCLE = DUTYCYCLE_CENTER; // 3938, makes the duty cycle be 1.5ms
 
     PWM->PWM_CH_NUM[SERVO_CHANNEL].PWM_CMR |= PWM_CMR_CPOL; // Sets start of PWM to high
     
