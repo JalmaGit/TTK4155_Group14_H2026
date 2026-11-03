@@ -32,11 +32,11 @@ int main() {
   printf("UART initialized\n\r");
 
   CanInit can_values;
-  can_values.phase1 = 6;
-  can_values.phase2 = 7;
-  can_values.propag = 2;
-  can_values.sjw = 1;
-  can_values.brp = 0;
+  can_values.phase1 = 5;
+  can_values.phase2 = 5;
+  can_values.propag = 0;
+  can_values.sjw = 0;
+  can_values.brp = 11;
   can_values.smp = 0;
 
   can_init(can_values, 1);
