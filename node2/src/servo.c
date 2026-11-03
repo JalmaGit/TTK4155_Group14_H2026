@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include "board.h"
+#include "sam3x8e.h"
 
 #define PWM_PID PID36
 #define PERIPHERAL_B 1
@@ -37,11 +38,11 @@ void servo_init(){
     PWM->PWM_CH_NUM[SERVO_CHANNEL].SERVO_PERIOD = (0b1100110100010100); // Sets 52 500 as clock divider
     PWM->PWM_CH_NUM[SERVO_CHANNEL].SERVO_DUTY_CYCLE = (0b0000111101100010); // 3938, makes the duty cycle be 1.5ms
 
-    PWM->PWM_CH_NUM[SERVO_CHANNEL].PWM_CMR |= (1 << CPOL); // Sets start of PWM to high
+    PWM->PWM_CH_NUM[SERVO_CHANNEL].PWM_CMR |= PWM_CMR_CPOL; // Sets start of PWM to high
     
     SERVO_SIGNAL_BLOCK->PIO_ABSR |= SERVO_SIGNAL_PIN; // Select Peripheral B
     SERVO_SIGNAL_BLOCK->PIO_PDR = SERVO_SIGNAL_PIN;   // Give control to PWM
-    PWM->PWM_ENA = (1 << CHID1); // Enables PWM on servo channel
+    PWM->PWM_ENA = (1U << SERVO_CHANNEL); // Enables PWM on servo channel
 }
 
 void servo_go_left() {

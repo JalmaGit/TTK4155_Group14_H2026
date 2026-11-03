@@ -13,7 +13,7 @@
  reinstall the arm gcc packages using
  * apt or your favorite package manager.
  */
-#include "tests/servo_signal.h"
+#include "tests/servo_tests.h"
 #include "uart.h"
 
 int main() {
@@ -29,7 +29,7 @@ int main() {
   uart_init(SystemCoreClock, 9600); // SystemCoreClock = 84 000 000
   printf("UART initialized\n\r");
 
-  test_servo_signal();
+  test_pwm();
 
   while (1) {
     /* code */
