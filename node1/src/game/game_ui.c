@@ -10,6 +10,6 @@ void game_draw(int score) {
   oled_write_str_large("Playing!");
 
   oled_pos(1, 0);
-  sprintf(buffer, sizeof(buffer), "Score %d", score);
+  snprintf(buffer, sizeof(buffer), "Score %d", score);
   oled_write_str_medium(buffer);
 }
