@@ -122,9 +122,8 @@ void interrupt_configure() {
   clear_bit(CAN_INT_PORT, CAN_INT_PIN);
 
   uint8_t CANINTE_MASK = 0b00011111;
-  uint8_t CANINTE_BYTE = 0b00011111;
 
-  bit_modify(MCP_CANINTE, CANINTE_MASK, CANINTE_BYTE);
+  bit_modify(MCP_CANINTE, CANINTE_MASK, MCP_RX_INT);
 }
 
 void receive_configure() {
@@ -137,4 +136,9 @@ void mode_configure(uint8_t MODE) {
   uint8_t CANCTRL_BYTE = MODE;
 
   bit_modify(MCP_CANCTRL, CANCTRL_MASK, CANCTRL_BYTE);
+
+  uint16_t timeout = 1000;
+  while ((can_read(MCP_CANSTAT) & MODE_MASK) != (MODE & MODE_MASK) &&
+         --timeout) {
+  }
 }
