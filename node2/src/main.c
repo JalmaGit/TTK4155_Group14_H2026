@@ -1,11 +1,11 @@
 #include "can.h"
+#include "game/game.h"
+#include "ir.h"
 #include "sam.h"
-#include "uart.h"
 #include "servo.h"
+#include "uart.h"
 #include <stdarg.h>
 #include <stdio.h>
-#include "tests/servo_tests.h"
-#include "game/game.h"
 
 /*
  * Remember to update the Makefile with the (relative) path to the uart.c file.
@@ -41,10 +41,10 @@ int main() {
 
   can_init(can_values, 0);
   servo_init();
+  adc_init();
 
   while (1) {
     // TODO: listen to pings
     game_loop();
-    
   }
 }
