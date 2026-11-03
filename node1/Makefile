@@ -7,6 +7,7 @@ SOURCE_FILES := src/main.c \
 								src/display/oled.c \
 								src/display/ssd1309.c \
 								src/spi.c \
+								src/game/game.c \
 								src/can/mcp2515_low_level.c \
 								src/can/mcp2515_high_level.c \
 								src/can/config.c \

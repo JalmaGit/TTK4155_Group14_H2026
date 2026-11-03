@@ -3,5 +3,6 @@
 
 void init_can_bus_test(void);
 void can_bus_test(void);
+void can_bus_test_normal(void);
 
 #endif
