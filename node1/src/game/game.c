@@ -22,7 +22,7 @@ void game_loop() {
   while (1) {
     send_joystick_data();
 
-    _delay_ms(20);
+    _delay_ms(1000);
   }
 }
 
