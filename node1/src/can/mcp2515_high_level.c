@@ -153,8 +153,15 @@ void can_transmit(struct CAN_Message *message_data) {
   }
 }
 
-void enable_loop_back_mode() { mode_configure(CAN_LOOP_BACK_MODE); }
-void disable_loop_back_mode() { mode_configure(CAN_NORMAL_MODE); }
+void enable_loop_back_mode() {
+  mode_configure(MODE_CONFIG);
+  mode_configure(CAN_LOOP_BACK_MODE);
+}
+
+void disable_loop_back_mode() {
+  mode_configure(MODE_CONFIG);
+  mode_configure(CAN_NORMAL_MODE);
+}
 
 void clear_transmit_buffers() {
   uint8_t TXREQ_MASK = 0b00001000;
