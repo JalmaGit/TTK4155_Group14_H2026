@@ -1,3 +1,4 @@
+#include "servo.h"
 #include <stdint.h>
 #include "board.h"
 #include "sam3x8e.h"
@@ -9,6 +10,8 @@
 #define SERVO_PERIOD PWM_CPRD
 #define SERVO_DUTY_CYCLE PWM_CDTY
 #define SERVO_UPDATE_DUTY_CYCLE PWM_CDTYUPD
+
+Direction get_direction(uint8_t joystick);
 
 /*
 Servo period = 20ms = 50Hz
@@ -33,6 +36,7 @@ void servo_init(){
     // Use SAM3X pin PB13, Peripheral B, PWMH1
      
     PMC->PMC_PCER1 = (1U << (ID_PWM - 32)); // Enable peripheral clock signal
+    // PMC->PMC_PCER0 = (1U << ID_PIOB); // Enables peripheral B clock
     PWM->PWM_CH_NUM[SERVO_CHANNEL].PWM_CMR = 5; // Sets X = 32 as the prescaler
     
     PWM->PWM_CH_NUM[SERVO_CHANNEL].SERVO_PERIOD = (0b1100110100010100); // Sets 52 500 as clock divider
@@ -45,8 +49,40 @@ void servo_init(){
     PWM->PWM_ENA = (1U << SERVO_CHANNEL); // Enables PWM on servo channel
 }
 
+
+
+Direction get_direction(uint8_t joystick)
+{
+    if (joystick < 108) {return left;}
+    else if (joystick > 148) {return right;}
+    return stay;
+}
+
+void servo_move(uint8_t joystick_value) {
+    Direction direction = get_direction(joystick_value);
+
+    switch (direction) {
+        case stay:
+            servo_center();
+            break;
+
+        case left:
+            servo_go_left();
+            break;
+
+        case right:
+            servo_go_right();
+            break;
+    }
+}
+
+
 void servo_go_left() {
     PWM->PWM_CH_NUM[SERVO_CHANNEL].SERVO_UPDATE_DUTY_CYCLE = (0b0000101001000001); // 2625, makes the duty cycle be 1.0ms
+}
+
+void servo_center(){
+        PWM->PWM_CH_NUM[SERVO_CHANNEL].SERVO_UPDATE_DUTY_CYCLE = (0b0000111101100010); // 3938, makes the duty cycle be 1.5ms
 }
 
 void servo_go_right() {
