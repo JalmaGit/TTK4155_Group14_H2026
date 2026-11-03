@@ -1,5 +1,6 @@
 #include "can.h"
 #include "sam.h"
+#include "time.h"
 #include "uart.h"
 #include <stdarg.h>
 #include <stdio.h>
@@ -36,10 +37,21 @@ int main() {
   can_values.brp = 0;
   can_values.smp = 0;
 
-  can_init(can_values, 1);
+  can_init(can_values, 0);
+
+  CanMsg msg;
 
   while (1) {
     // TODO: listen to pings and joystick data
+
+    if (can_rx(&msg)) {
+      printf("Received message\r\n");
+      can_printmsg(msg);
+    } else {
+      printf("No messages received...\r\n");
+    }
+
+    time_spinFor(msecs(1000));
 
     /* code */
   }
