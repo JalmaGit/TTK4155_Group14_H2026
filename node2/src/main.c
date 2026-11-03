@@ -44,8 +44,7 @@ int main() {
 
   while (1) {
     // TODO: listen to pings
-    // Read Joystick data
-    game_start();
+    game_loop();
     
   }
 }

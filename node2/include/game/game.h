@@ -3,6 +3,6 @@
 
 #include <stdint.h>
 
-void game_start();
+void game_loop();
 
 #endif // GAME_H
