@@ -39,7 +39,7 @@ int main() {
   can_values.brp = 11;
   can_values.smp = 0;
 
-  can_init(can_values, 1);
+  can_init(can_values, 0);
   servo_init();
 
   while (1) {

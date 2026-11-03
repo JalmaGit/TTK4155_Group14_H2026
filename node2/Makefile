@@ -16,7 +16,8 @@ SOURCE_FILES = \
 	src/can.c \
 	src/time.c \
 	src/servo.c\
-	src/game/game.c
+	src/game/game.c\
+	../common/src/serialize.c
 
 SOURCE_FILES += $(TEST_FILES)
 # Feel free to ignore anything below this line
@@ -38,7 +39,9 @@ CFLAGS:= -mcpu=cortex-m3 -mthumb -g -std=c11 -MMD
 CFLAGS+= -I sam -I sam/sam3x/include -I sam/sam3x/source -I sam/cmsis -I .
 CFLAGS+= -D $(MCUTYPE)
 CFLAGS += -Iinclude
+CFLAGS += -I../common/include
 # CFLAGS += -Iinclude -I../lib
+
 
 
 .DEFAULT_GOAL := $(ELF)

@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include "board.h"
 #include "sam3x8e.h"
+#include "serialize.h"
 
 #define PWM_PID PID36
 #define PERIPHERAL_B 1
@@ -10,6 +11,9 @@
 #define SERVO_PERIOD PWM_CPRD
 #define SERVO_DUTY_CYCLE PWM_CDTY
 #define SERVO_UPDATE_DUTY_CYCLE PWM_CDTYUPD
+#define DUTYCYCLE_MAX_LEFT 2625
+#define DUTYCYCLE_CENTER 3938
+#define DUTYCYCLE_MAX_RIGHT 5250
 
 Direction get_direction(uint8_t joystick);
 
@@ -49,42 +53,39 @@ void servo_init(){
     PWM->PWM_ENA = (1U << SERVO_CHANNEL); // Enables PWM on servo channel
 }
 
-
-
-Direction get_direction(uint8_t joystick)
-{
-    if (joystick < 108) {return left;}
-    else if (joystick > 148) {return right;}
-    return stay;
+float get_ms_from_joystick(uint8_t joystick){
+    return byte_to_float(joystick, (float) (1), (float) (2));
 }
 
-void servo_move(uint8_t joystick_value) {
-    Direction direction = get_direction(joystick_value);
+uint16_t get_dutycycle_from_ms(float ms){
+    if (ms < 1.0f) ms = 1.0f;
+    if (ms > 2.0f) ms = 2.0f;
 
-    switch (direction) {
-        case stay:
-            servo_center();
-            break;
+    return (uint16_t)(2625.0f + (ms - 1.0f) * 2625.0f + 0.5f);
+}
 
-        case left:
-            servo_go_left();
-            break;
+uint16_t clamp(uint16_t dutycycle){
+    if ( dutycycle < DUTYCYCLE_MAX_LEFT) { return DUTYCYCLE_MAX_LEFT; }
+    else if ( dutycycle > DUTYCYCLE_MAX_RIGHT ) { return DUTYCYCLE_MAX_RIGHT; }
+    else { return dutycycle; }
+}
 
-        case right:
-            servo_go_right();
-            break;
-    }
+void servo_move(uint16_t joystick_uint16_t) {
+    float ms = get_ms_from_joystick(joystick_uint16_t);
+    uint16_t dutycycle = get_dutycycle_from_ms(ms);
+    
+    PWM->PWM_CH_NUM[SERVO_CHANNEL].SERVO_UPDATE_DUTY_CYCLE = clamp(dutycycle);
 }
 
 
 void servo_go_left() {
-    PWM->PWM_CH_NUM[SERVO_CHANNEL].SERVO_UPDATE_DUTY_CYCLE = (0b0000101001000001); // 2625, makes the duty cycle be 1.0ms
+    PWM->PWM_CH_NUM[SERVO_CHANNEL].SERVO_UPDATE_DUTY_CYCLE = DUTYCYCLE_MAX_LEFT; // Left = 2625, makes the duty cycle be 1.0ms
 }
 
 void servo_center(){
-        PWM->PWM_CH_NUM[SERVO_CHANNEL].SERVO_UPDATE_DUTY_CYCLE = (0b0000111101100010); // 3938, makes the duty cycle be 1.5ms
+        PWM->PWM_CH_NUM[SERVO_CHANNEL].SERVO_UPDATE_DUTY_CYCLE = DUTYCYCLE_CENTER; // Center = 3938, makes the duty cycle be 1.5ms
 }
 
 void servo_go_right() {
-    PWM->PWM_CH_NUM[SERVO_CHANNEL].SERVO_UPDATE_DUTY_CYCLE = (0b1010010000010); // 5250, makes the duty cycle be 2.0ms
+    PWM->PWM_CH_NUM[SERVO_CHANNEL].SERVO_UPDATE_DUTY_CYCLE = DUTYCYCLE_MAX_RIGHT; // 5250, makes the duty cycle be 2.0ms
 }
