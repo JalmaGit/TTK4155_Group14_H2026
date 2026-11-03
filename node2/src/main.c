@@ -29,9 +29,9 @@ int main() {
   printf("UART initialized\n\r");
 
   CanInit can_values;
-  can_values.phase1 = 4;
+  can_values.phase1 = 5;
   can_values.phase2 = 5;
-  can_values.propag = 1;
+  can_values.propag = 0;
   can_values.sjw = 0;
   can_values.brp = 11;
   can_values.smp = 0;
