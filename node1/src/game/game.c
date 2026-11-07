@@ -1,8 +1,10 @@
 #include "game/game.h"
 #include "can/mcp2515_high_level.h"
 #include "game/game_ui.h"
+#include "game/tick.h"
 #include "serialize.h"
 #include "user_io.h"
+#include <stdint.h>
 #include <stdio.h>
 #include <util/delay.h>
 
@@ -20,17 +22,36 @@ void send_joystick_data() {
   can_transmit(&msg);
 }
 
+#define SECONDS(s) ((uint32_t)(s) * TICK_HZ)
+
 void game_loop() {
+  tick_init();
+
   int score = 0;
+  uint32_t now = 0;
+
+  int next_update_score = SECONDS(1);
+
   while (1) {
+    uint8_t missed = tick_wait();
+    now += 1 + missed;
+
+    bool update_screen = false;
+
     send_joystick_data();
 
-    // TMP
-    score += 1;
+    if (now >= next_update_score) {
+      next_update_score += SECONDS(1);
+      score += 1;
+      update_screen = true;
+    }
 
-    game_draw(score);
-    _delay_ms(1000);
+    if (update_screen) {
+      game_draw(score);
+    }
   }
+
+  tick_stop();
 }
 
 void game_start() {
