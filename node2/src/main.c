@@ -6,6 +6,7 @@
 #include "uart.h"
 #include <stdarg.h>
 #include <stdio.h>
+#include "motor.h"
 
 /*
  * Remember to update the Makefile with the (relative) path to the uart.c file.
@@ -42,6 +43,7 @@ int main() {
   can_init(can_values, 0);
   servo_init();
   adc_init();
+  motor_init();
 
   while (1) {
     // TODO: listen to pings

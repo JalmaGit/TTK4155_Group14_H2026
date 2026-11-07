@@ -17,7 +17,8 @@ SOURCE_FILES = \
 	src/ir.c \
 	src/time.c \
 	src/servo.c \
-	src/game/game.c
+	src/game/game.c \
+	src/motor.c
 	
 include ../common/Makefile
 
