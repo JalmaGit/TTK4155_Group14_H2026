@@ -19,3 +19,19 @@ void game_draw(int score, bool is_respawning) {
     oled_write_str_medium("Respawning...");
   }
 }
+
+void game_draw_ball_warning(void) {
+  oled_clear_screen();
+
+  oled_pos(0, 0);
+  oled_write_str_large("Warning!");
+  oled_pos(2, 0);
+  oled_write_str_medium("Please remove ball...");
+}
+
+void game_draw_press_continue(void) {
+  oled_clear_screen();
+
+  oled_pos(0, 0);
+  oled_write_str_medium("Press SR6 to continue...");
+}

@@ -37,79 +37,126 @@ void set_lights(int lives) {
   set_led(2, lives >= 3);
 }
 
-void game_loop() {
-  tick_init();
+void block_until_continue(void) {
+  bool continue_button_pressed = false;
 
-  int score = 0;
-  uint32_t now = 0;
-  int lives = 3;
+  while (!continue_button_pressed) {
+    Buttons buttons = read_buttons();
 
-  int next_update_score = SECONDS(1);
-  int next_restart = SECONDS(0);
+    continue_button_pressed = buttons.R6;
+  }
+}
 
+#define CAN_NO_MESSAGE 0xFFFF
+
+static void can_drain(void) {
+  // Empties stale data
+  for (uint8_t i = 0; i < 8; i++) {
+    if (can_wait_receive().ID == CAN_NO_MESSAGE)
+      break;
+  }
+}
+
+void check_no_ball(void) {
+  can_drain();
+  bool ir_message_received = false;
   bool is_ir_blocked = false;
-  int ir_blocked_strikes = 0;
-  bool is_respawning = false;
 
-  set_lights(lives);
-
-  game_draw(score, is_respawning);
-
-  while (1) {
-    uint8_t missed = tick_wait();
-    now += 1 + missed;
-
-    bool update_screen = false;
-
+  while (!ir_message_received) {
     struct CAN_Message msg_incoming = can_wait_receive();
 
-    if (msg_incoming.ID != 0xFFFF) {
-      switch (msg_incoming.ID) {
-      case MSG_IR_BLOCKED_ID:
-        is_ir_blocked = msg_incoming.data[0];
-        break;
-      }
+    if (msg_incoming.ID == MSG_IR_BLOCKED_ID) {
+      is_ir_blocked = msg_incoming.data[0];
+      ir_message_received = true;
     }
+  }
 
-    if (now <= next_restart) {
-      // wait
-      continue;
+  if (!is_ir_blocked) {
+    return;
+  }
+
+  game_draw_ball_warning();
+
+  while (is_ir_blocked) {
+    struct CAN_Message msg_incoming = can_wait_receive();
+
+    if (msg_incoming.ID == MSG_IR_BLOCKED_ID) {
+      is_ir_blocked = msg_incoming.data[0];
     }
+  }
 
-    is_respawning = false;
+  game_draw_press_continue();
+  block_until_continue();
+}
+
+void game_round(int *score) {
+  check_no_ball();
+  game_draw(*score, false);
+
+  tick_init();
+
+  uint32_t now = 0;
+  uint32_t next_update_score = SECONDS(1);
+
+  int is_ir_blocked = false;
+  int is_ir_blocked_strikes = 0;
+  bool redraw = true;
+
+  while (1) {
+    now += 1 + tick_wait();
 
     send_joystick_data();
 
-    if (now >= next_update_score) {
-      next_update_score += SECONDS(1);
-      score += 1;
-      update_screen = true;
-    }
-
-    if (is_ir_blocked) {
-      ir_blocked_strikes += 1;
-    } else {
-      ir_blocked_strikes = 0;
-    }
-
-    if (ir_blocked_strikes >= 3) {
-      lives -= 1;
-      set_lights(lives);
-      is_respawning = true;
-      update_screen = true;
-      next_restart = now + SECONDS(2);
-    }
-
-    if (lives <= 0) {
+    struct CAN_Message msg_incoming = can_wait_receive();
+    switch (msg_incoming.ID) {
+    case MSG_IR_BLOCKED_ID:
+      is_ir_blocked = msg_incoming.data[0];
       break;
     }
 
-    if (update_screen) {
-      game_draw(score, is_respawning);
+    if (is_ir_blocked) {
+      is_ir_blocked_strikes += 1;
+    } else {
+      is_ir_blocked_strikes = 0;
+    }
+
+    if (is_ir_blocked_strikes >= 2) {
+      break;
+    }
+
+    if (now >= next_update_score) {
+      next_update_score += SECONDS(1);
+      *score += 1;
+      redraw = true;
+    }
+
+    if (redraw) {
+      game_draw(*score, false);
+      redraw = false;
     }
   }
 
   tick_stop();
+}
+
+void game_loop() {
+  int lives = 3;
+  int score = 0;
+
+  set_lights(lives);
+
+  while (lives > 0) {
+    game_round(&score);
+    lives -= 1;
+    set_lights(lives);
+
+    game_draw(score, lives > 0);
+
+    _delay_ms(1000);
+
+    // game_draw_press_continue();
+    // block_until_continue();
+  }
 }
 
 void game_start() {
