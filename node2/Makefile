@@ -14,6 +14,7 @@ SOURCE_FILES = \
 	src/main.c \
 	src/uart.c \
 	src/can.c \
+	src/ir.c \
 	src/time.c \
 	src/servo.c \
 	src/game/game.c
