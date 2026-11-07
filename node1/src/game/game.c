@@ -6,6 +6,7 @@
 #include "msgs.h"
 #include "serialize.h"
 #include "user_io.h"
+#include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <util/delay.h>
@@ -48,10 +49,11 @@ void game_loop() {
 
   bool is_ir_blocked = false;
   int ir_blocked_strikes = 0;
+  bool is_respawning = false;
 
   set_lights(lives);
 
-  game_draw(score);
+  game_draw(score, is_respawning);
 
   while (1) {
     uint8_t missed = tick_wait();
@@ -74,6 +76,8 @@ void game_loop() {
       continue;
     }
 
+    is_respawning = false;
+
     send_joystick_data();
 
     if (now >= next_update_score) {
@@ -91,6 +95,8 @@ void game_loop() {
     if (ir_blocked_strikes >= 3) {
       lives -= 1;
       set_lights(lives);
+      is_respawning = true;
+      update_screen = true;
       next_restart = now + SECONDS(2);
     }
 
@@ -99,7 +105,7 @@ void game_loop() {
     }
 
     if (update_screen) {
-      game_draw(score);
+      game_draw(score, is_respawning);
     }
   }
 
