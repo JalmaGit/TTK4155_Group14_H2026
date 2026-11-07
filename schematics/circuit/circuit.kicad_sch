@@ -155,6 +155,52 @@
 		)
 	)
 	(sheet
+		(at 181.61 19.05)
+		(size 21.59 34.29)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "43cf2f33-b513-4b3e-b8e2-d82e4f8ce960")
+		(property "Sheetname" "Ping Pong"
+			(at 181.61 18.3384 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "pingpong.kicad_sch"
+			(at 181.61 53.9246 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "circuit"
+				(path "/a0fbafcd-7e01-42a2-97f7-971c6d70f3e6"
+					(page "8")
+				)
+			)
+		)
+	)
+	(sheet
 		(at 157.48 19.05)
 		(size 21.59 34.29)
 		(exclude_from_sim no)
