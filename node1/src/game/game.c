@@ -30,15 +30,28 @@ void send_joystick_data() {
 
 #define SECONDS(s) ((uint32_t)(s) * TICK_HZ)
 
+void set_lights(int lives) {
+  set_led(0, lives >= 1);
+  set_led(1, lives >= 2);
+  set_led(2, lives >= 3);
+}
+
 void game_loop() {
   tick_init();
 
   int score = 0;
   uint32_t now = 0;
+  int lives = 3;
 
   int next_update_score = SECONDS(1);
+  int next_restart = SECONDS(0);
 
   bool is_ir_blocked = false;
+  int ir_blocked_strikes = 0;
+
+  set_lights(lives);
+
+  game_draw(score);
 
   while (1) {
     uint8_t missed = tick_wait();
@@ -47,15 +60,18 @@ void game_loop() {
     bool update_screen = false;
 
     struct CAN_Message msg_incoming = can_wait_receive();
-    // TODO: does this block, or just send "invalid id" when nothing is received
+
     if (msg_incoming.ID != 0xFFFF) {
-      printf("Incoming message!");
       switch (msg_incoming.ID) {
       case MSG_IR_BLOCKED_ID:
-        // IR
         is_ir_blocked = msg_incoming.data[0];
         break;
       }
+    }
+
+    if (now <= next_restart) {
+      // wait
+      continue;
     }
 
     send_joystick_data();
@@ -67,7 +83,19 @@ void game_loop() {
     }
 
     if (is_ir_blocked) {
-      score = 0;
+      ir_blocked_strikes += 1;
+    } else {
+      ir_blocked_strikes = 0;
+    }
+
+    if (ir_blocked_strikes >= 3) {
+      lives -= 1;
+      set_lights(lives);
+      next_restart = now + SECONDS(2);
+    }
+
+    if (lives <= 0) {
+      break;
     }
 
     if (update_screen) {
