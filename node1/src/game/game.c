@@ -29,7 +29,7 @@ void send_joystick_data() {
   can_transmit(&msg);
 }
 
-void send_game_data(int is_playing) {
+void send_game_data(bool is_playing) {
   struct CAN_Message msg = {MSG_GAME_DATA_ID, 1, {is_playing}};
   can_transmit(&msg);
 }
@@ -95,7 +95,7 @@ void check_no_ball(void) {
 }
 
 void game_round(int *score) {
-  send_game_data(1);
+  send_game_data(true);
   check_no_ball();
   game_draw(*score, false);
 
@@ -142,7 +142,7 @@ void game_round(int *score) {
     }
   }
 
-  send_game_data(0);
+  send_game_data(false);
   tick_stop();
 }
 
@@ -160,14 +160,11 @@ void game_loop() {
     game_draw(score, lives > 0);
 
     _delay_ms(1000);
-
-    // game_draw_press_continue();
-    // block_until_continue();
   }
 }
 
 void game_start() {
-  send_game_data(0);
+  send_game_data(false);
   printf("starting game...");
 
   game_loop();

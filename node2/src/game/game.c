@@ -17,8 +17,6 @@ void game_loop() {
   CanMsg msg;
   Buttons buttons;
 
-  // time_spinFor(msecs(50));
-
   printf("Position: %f, set_point: %f\r\n", get_motor_position_normalized(),
          set_point);
 
@@ -28,7 +26,6 @@ void game_loop() {
       servo_move(servo_position);
 
       float motor_value = byte_to_float(msg.byte[0], -1, 1);
-      // motor_move_pid(byte_to_float(motor_value, -1, 1));
 
       if (motor_value < 0.2 && motor_value > -0.2) {
         motor_value = 0;

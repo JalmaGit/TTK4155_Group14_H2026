@@ -29,19 +29,6 @@ MotorCalibrationResult motor_calibration_result = {
     .width = 1000,
 };
 
-/*
-
-    The current-limiter for the motor is set to 1.9A with a resistor of 33k.
-    The NOR-gate ???? outputs directs the PWM signal to one input, and sets the
-    other to low. ????
-    The result is FAST CURRENCT DECAY MODE or "coasting" behaviour
-
-
-    It seems like I have to set up a timer (TC2) to keep the count of the
-   position (relative to the startup). The first thing in the exercise is to set
-   this up and see if the encode can read the relative position of the motor.
-    */
-
 void motor_init() {
   encoder_init();
   motor_pwm_init();
