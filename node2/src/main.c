@@ -4,9 +4,12 @@
 #include "can.h"
 #include "game/game.h"
 #include "ir.h"
+#include "motor.h"
+#include "pid.h"
 #include "sam.h"
 #include "servo.h"
 #include "solenoid.h"
+#include "time.h"
 #include "uart.h"
 #include <stdarg.h>
 #include <stdio.h>
@@ -47,6 +50,11 @@ int main() {
   servo_init();
   solenoid_init();
   adc_init();
+  motor_init();
+
+  time_spinFor(msecs(2000));
+  motor_calibrate();
+  init_PID(MOTOR_P, MOTOR_I, MOTOR_D);
 
   while (1) {
     game_loop();
