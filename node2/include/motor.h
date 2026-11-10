@@ -11,7 +11,7 @@ typedef struct {
 void motor_init();
 void motor_calibrate(void);
 void motor_move_value(uint8_t move_value);
-void motor_move_pid(uint8_t move_value);
+void motor_move_pid(float joy_in);
 
 int32_t get_motor_position_raw(void);
 

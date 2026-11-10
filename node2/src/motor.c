@@ -191,3 +191,9 @@ void motor_calibrate(void) {
   printf("Stopping...\r\n");
   set_speed_normalized(0);
 }
+
+void motor_move_pid(float joy_in) {
+  float joy_normalized = (joy_in + 1) / 2;
+  float u = controller_PID(joy_normalized, get_motor_position_normalized());
+  set_speed_normalized(u);
+}

@@ -3,6 +3,7 @@
 #include "ir.h"
 #include "motor.h"
 #include "pid.h"
+#include "sam.h"
 #include "servo.h"
 #include "solenoid.h"
 #include "time.h"
@@ -50,7 +51,7 @@ int main() {
 
   time_spinFor(msecs(2000));
   motor_calibrate();
-  init_PID(0.1, 0, 0);
+  init_PID(1, 0.5, 0.05);
 
   while (1) {
     // TODO: listen to pings
