@@ -1,3 +1,7 @@
+// This file was provided by https://github.com/TTK4155/lab-tools
+//
+// Slight modifications has been made such as using macros from board.h.
+
 #include "tests/sram_test.h"
 #include "board.h"
 #include <stdint.h>

@@ -1,3 +1,6 @@
+// This file have used boilerplate provided by
+// https://github.com/TTK4155/node2/
+
 #include "can.h"
 #include "game/game.h"
 #include "ir.h"
@@ -46,7 +49,6 @@ int main() {
   adc_init();
 
   while (1) {
-    // TODO: listen to pings
     game_loop();
   }
 }

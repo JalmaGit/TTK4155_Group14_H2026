@@ -1,3 +1,7 @@
+// This file was provided by https://github.com/TTK4155/node2
+// Slightly modified to include <stdint.h>
+
+#include <stdint.h>
 
 // UART is connected to the ATmega16U2 on the Arduino, which acts as a USB
 // serial device. This module hooks into the stdio functions, by spoofing

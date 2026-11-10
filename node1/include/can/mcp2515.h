@@ -1,3 +1,8 @@
+// MCP2515 Defintions
+//
+// Provided by Kimberly Otten Software Consulting.
+// Slight modifcations have been made.
+
 #ifndef __MCP2515_H
 #define __MCP2515_H
 
