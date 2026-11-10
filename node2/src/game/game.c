@@ -1,14 +1,14 @@
 #include "can.h"
 #include "ir.h"
+#include "motor.h"
 #include "msgs.h"
+#include "sam.h"
 #include "serialize.h"
 #include "servo.h"
 #include "solenoid.h"
 #include "time.h"
 #include <stdint.h>
 #include <stdio.h>
-#include "sam.h"
-#include "motor.h"
 
 void game_loop() {
   CanMsg msg;
@@ -16,8 +16,7 @@ void game_loop() {
 
   time_spinFor(msecs(50));
 
-  uint32_t position_counter = TC2->TC_CHANNEL[0].TC_CV;
-  printf("Position: %d\r\n", position_counter);
+  printf("Position: %f\r\n", get_motor_position_normalized());
 
   if (can_rx(&msg)) {
     if (msg.id == MSG_USER_IO_ID) {
@@ -25,7 +24,7 @@ void game_loop() {
       servo_move(servo_position);
 
       uint8_t motor_value = msg.byte[0];
-      motor_move_pid(motor_value);
+      // motor_move_pid(motor_value);
 
       buttons.right = msg.byte[2];
       buttons.left = msg.byte[3];
