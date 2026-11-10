@@ -1,6 +1,10 @@
 /*
  * fonts.h
  *
+ * Provided by https://github.com/TTK4155/lab-tools
+ *
+ * We have also added get_glyphX_byte helper functions.
+ *
  * Library of fonts
  * Large: 8x8, normal: 5x7 and small: 4x7
  */

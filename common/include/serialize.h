@@ -12,6 +12,7 @@ uint8_t float_to_byte(float value, float range_start, float range_end);
 float byte_to_float(uint8_t value, float range_start, float range_end);
 
 // user-io avr buttons
+// Provided by the TTK4155 Lab Documentation.
 typedef struct __attribute__((packed)) {
   union {
     uint8_t right;

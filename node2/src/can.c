@@ -1,3 +1,6 @@
+// This file was provided by https://github.com/TTK4155/node2
+//
+// `CAN0_Handler` had to be modified to make it work/compile.
 
 #include "can.h"
 #include "sam.h"
