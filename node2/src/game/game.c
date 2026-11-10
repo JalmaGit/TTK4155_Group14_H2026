@@ -3,6 +3,7 @@
 #include "msgs.h"
 #include "serialize.h"
 #include "servo.h"
+#include "solenoid.h"
 #include "time.h"
 #include <stdint.h>
 #include <stdio.h>
@@ -29,6 +30,8 @@ void game_loop() {
       buttons.right = msg.byte[2];
       buttons.left = msg.byte[3];
       buttons.nav = msg.byte[4];
+
+      solenoid_set(buttons.R6);
     }
   }
 

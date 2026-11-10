@@ -3,6 +3,7 @@
 #include "ir.h"
 #include "sam.h"
 #include "servo.h"
+#include "solenoid.h"
 #include "uart.h"
 #include <stdarg.h>
 #include <stdio.h>
@@ -42,6 +43,7 @@ int main() {
 
   can_init(can_values, 0);
   servo_init();
+  solenoid_init();
   adc_init();
   motor_init();
 

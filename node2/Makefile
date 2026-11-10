@@ -14,11 +14,13 @@ SOURCE_FILES = \
 	src/main.c \
 	src/uart.c \
 	src/can.c \
+	src/pid.c \
 	src/ir.c \
 	src/time.c \
 	src/servo.c \
-	src/game/game.c \
-	src/motor.c
+	src/motor.c \
+	src/solenoid.c \
+	src/game/game.c
 	
 include ../common/Makefile
 
