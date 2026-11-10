@@ -1,5 +1,8 @@
 #include "can.h"
+#include "game/game.h"
+#include "ir.h"
 #include "sam.h"
+#include "servo.h"
 #include "uart.h"
 #include <stdarg.h>
 #include <stdio.h>
@@ -36,11 +39,12 @@ int main() {
   can_values.brp = 11;
   can_values.smp = 0;
 
-  can_init(can_values, 1);
+  can_init(can_values, 0);
+  servo_init();
+  adc_init();
 
   while (1) {
-    // TODO: listen to pings and joystick data
-
-    /* code */
+    // TODO: listen to pings
+    game_loop();
   }
 }

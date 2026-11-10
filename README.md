@@ -29,3 +29,7 @@ Remember to `make fmt` before committing!
 sudo picocom --baud 9600 --databits 8 --stopbits 2 /dev/ttyS0
 ```
 
+## Flashing
+
+Node1: go to ´../node1/´ and run ´make flash´
+Node2: go to ´../node2/´and run ´make flash´
