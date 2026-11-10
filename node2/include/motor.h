@@ -3,6 +3,10 @@
 
 #include <stdint.h>
 
+#define MOTOR_P 2
+#define MOTOR_I 0.5
+#define MOTOR_D 0.05
+
 typedef struct {
   int min;
   int width;

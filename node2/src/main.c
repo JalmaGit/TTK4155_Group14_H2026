@@ -51,7 +51,7 @@ int main() {
 
   time_spinFor(msecs(2000));
   motor_calibrate();
-  init_PID(1, 0.5, 0.05);
+  init_PID(MOTOR_P, MOTOR_I, MOTOR_D);
 
   while (1) {
     // TODO: listen to pings

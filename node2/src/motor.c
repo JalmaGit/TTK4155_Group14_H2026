@@ -192,8 +192,7 @@ void motor_calibrate(void) {
   set_speed_normalized(0);
 }
 
-void motor_move_pid(float joy_in) {
-  float joy_normalized = (joy_in + 1) / 2;
-  float u = controller_PID(joy_normalized, get_motor_position_normalized());
+void motor_move_pid(float set_point) {
+  float u = controller_PID(set_point, get_motor_position_normalized());
   set_speed_normalized(u);
 }

@@ -29,6 +29,11 @@ void send_joystick_data() {
   can_transmit(&msg);
 }
 
+void send_game_data(int is_playing) {
+  struct CAN_Message msg = {MSG_GAME_DATA_ID, 1, {is_playing}};
+  can_transmit(&msg);
+}
+
 #define SECONDS(s) ((uint32_t)(s) * TICK_HZ)
 
 void set_lights(int lives) {
@@ -90,6 +95,7 @@ void check_no_ball(void) {
 }
 
 void game_round(int *score) {
+  send_game_data(1);
   check_no_ball();
   game_draw(*score, false);
 
@@ -136,6 +142,7 @@ void game_round(int *score) {
     }
   }
 
+  send_game_data(0);
   tick_stop();
 }
 
@@ -160,6 +167,7 @@ void game_loop() {
 }
 
 void game_start() {
+  send_game_data(0);
   printf("starting game...");
 
   game_loop();
