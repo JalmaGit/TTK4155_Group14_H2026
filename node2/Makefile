@@ -17,6 +17,7 @@ SOURCE_FILES = \
 	src/ir.c \
 	src/time.c \
 	src/servo.c \
+	src/solenoid.c \
 	src/game/game.c
 	
 include ../common/Makefile
