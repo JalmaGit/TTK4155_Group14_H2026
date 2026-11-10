@@ -1,4 +1,5 @@
-# BodySlammers
+# TTK4155 Group 14 - 2026
+
 TTK4155 Labassignment
 
 ## Deployment
