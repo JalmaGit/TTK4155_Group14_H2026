@@ -8,6 +8,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include "motor.h"
+#include "pid.h"
 
 /*
  * Remember to update the Makefile with the (relative) path to the uart.c file.
@@ -46,6 +47,7 @@ int main() {
   solenoid_init();
   adc_init();
   motor_init();
+  init_PID(0.1,0,0);
 
   while (1) {
     // TODO: listen to pings

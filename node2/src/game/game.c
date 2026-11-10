@@ -25,7 +25,7 @@ void game_loop() {
       servo_move(servo_position);
 
       uint8_t motor_value = msg.byte[0];
-      motor_move_value(motor_value);
+      motor_move_pid(motor_value);
 
       buttons.right = msg.byte[2];
       buttons.left = msg.byte[3];

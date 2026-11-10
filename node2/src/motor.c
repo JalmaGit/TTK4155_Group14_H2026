@@ -3,6 +3,8 @@
 #include "serialize.h"
 #include <stdbool.h>
 #include <stdint.h>
+#include "pid.h"
+#include <math.h>
 
 #define MOTOR_PWM_PIN PIO_PB12
 #define MOTOR_DIR_PIN PIO_PC23
@@ -14,14 +16,16 @@
 
 #define MOTOR_SPEED_PERCENT 10 // 10%
 #define MOTOR_DUTYCYCLE ((MOTOR_SPEED_PERCENT * 25U + 50U) / 100U)
+#define CURRENT_POSITION TC2->TC_CHANNEL[0].TC_CV
 
-static uint16_t REFERENCE_POSITION = 0;
+volatile int32_t REFERENCE_POSITION = 0;
 
 void encoder_init();
 void motor_pwm_init();
 void set_direction(bool direction);
 bool get_direction(float move_value_float);
 uint8_t get_dutycycle(uint8_t percent);
+uint8_t set_speed(float u_float, uint8_t min_speed_percent, uint8_t max_speed_percent);
 
 /*
 
@@ -106,13 +110,13 @@ void motor_move_value(uint8_t move_value) {
     
     if ((move_value_float >= -0.5) && (move_value_float <= 0.5)) { // Don't move if joystick is idle
         
-        PWM->PWM_CH_NUM[0].PWM_CDTY = 0; // Set duty cycle to 0%
+        PWM->PWM_CH_NUM[0].PWM_CDTYUPD = 0; // Set duty cycle to 0%
         return;
     }
 
     bool direction = get_direction(move_value_float);
     set_direction(direction);
-    PWM->PWM_CH_NUM[0].PWM_CDTY = MOTOR_DUTYCYCLE;
+    PWM->PWM_CH_NUM[0].PWM_CDTYUPD = MOTOR_DUTYCYCLE;
 } 
 
 
@@ -135,3 +139,53 @@ void set_direction(bool direction){
         PIOC->PIO_SODR = MOTOR_DIR_PIN;  // Set Direction Left
     }
 }
+
+
+void motor_move_pid(uint8_t move_value){
+    float float_temp = byte_to_float(move_value, -1, 1);
+
+    REFERENCE_POSITION += (int32_t)(float_temp * 10);
+    float u_float = controller_PID((float)(REFERENCE_POSITION),(float) (CURRENT_POSITION));
+    
+    set_direction(get_direction(u_float));
+    uint8_t new_dutycycle = set_speed(u_float, 5, 15);
+    PWM->PWM_CH_NUM[0].PWM_CDTYUPD = new_dutycycle;
+
+}
+
+
+uint8_t set_speed(float u_float, uint8_t min_speed_percent, uint8_t max_speed_percent) {
+
+    if (min_speed_percent > 100) min_speed_percent = 100;
+    if (max_speed_percent > 100) max_speed_percent = 100;
+
+    if (min_speed_percent > max_speed_percent) {
+        min_speed_percent = max_speed_percent;
+    }
+
+    float speed = fabsf(u_float);
+
+    // Stop if the requested speed is essentially zero
+    if (speed < 0.01f) {
+        return 0;
+    }
+
+    // Enforce motor limits
+    if (speed < min_speed_percent) {
+        speed = min_speed_percent;
+    }
+
+    if (speed > max_speed_percent) {
+        speed = max_speed_percent;
+    }
+
+    return get_dutycycle((uint8_t)(speed + 0.5f));
+}
+
+uint8_t get_dutycycle(uint8_t percent) {
+    if (percent > 100) percent = 100;
+
+    return (uint8_t)((percent * 25U + 50U) / 100U);
+}
+
+
