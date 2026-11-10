@@ -12,12 +12,16 @@
 #define MOTOR_PWM_PIN_ID PMC_PCER0_PID12
 #define MOTOR_DIR_PIN_ID PMC_PCER0_PID13
 
+#define MOTOR_SPEED_PERCENT 10 // 10%
+#define MOTOR_DUTYCYCLE ((MOTOR_SPEED_PERCENT * 25U + 50U) / 100U)
+
 static uint16_t REFERENCE_POSITION = 0;
 
 void encoder_init();
 void motor_pwm_init();
 void set_direction(bool direction);
 bool get_direction(float move_value_float);
+uint8_t get_dutycycle(uint8_t percent);
 
 /*
 
@@ -58,7 +62,7 @@ void encoder_init() {
     TC2->TC_CHANNEL[0].TC_CCR = TC_CCR_CLKEN | TC_CCR_SWTRG; // Enable the counter and reset/start it
 }
 
-void motor_pwm_init(void) {
+void motor_pwm_init() {
     /*
     To drive the motor you must
         * Apply a PWM signal to the MOTOR PWM Pin (any frequency below 200 kHz)
@@ -77,8 +81,8 @@ void motor_pwm_init(void) {
     PWM->PWM_DIS = MOTOR_PWM_DISABLE; // Disable PWM channel 0
     PWM->PWM_CLK = PWM_CLK_PREA(0) | PWM_CLK_DIVA(84); // Set clock A to 1 MHz (84 MHz / 84)
     PWM->PWM_CH_NUM[0].PWM_CMR = PWM_CMR_CPRE_CLKA | PWM_CMR_CPOL; // Clock A, left-aligned, inverted polarity
-    PWM->PWM_CH_NUM[0].PWM_CPRD = 1000; // Set PWM frequency to 1 kHz
-    PWM->PWM_CH_NUM[0].PWM_CDTY = 250; // Set initial duty cycle to 25%
+    PWM->PWM_CH_NUM[0].PWM_CPRD = 25; // Set PWM frequency to 40 kHz
+    PWM->PWM_CH_NUM[0].PWM_CDTY = 0; // Set initial duty cycle to 0%
     
     // PWM pin
     PMC->PMC_PCER0 = MOTOR_PWM_PIN_ID; // Enable PIOB peripheral clock
@@ -89,26 +93,34 @@ void motor_pwm_init(void) {
     PMC->PMC_PCER0 = MOTOR_DIR_PIN_ID; // Enable PIOC peripheral clock
     PIOC->PIO_PER = MOTOR_DIR_PIN; // Enable GPIO control of PC23
     PIOC->PIO_OER = MOTOR_DIR_PIN; // Configure PC23 as output
+
+
+    // Set standard direction left
+    PIOC->PIO_CODR = MOTOR_DIR_PIN;  // Set direction left
+    PWM->PWM_ENA = MOTOR_PWM_ENABLE; // Enable output (0% on pwm signal)
 }
 
 void motor_move_value(uint8_t move_value) {
     float move_value_float = byte_to_float(move_value, -1.0, 1.0);
+    printf("Float value: %f\r\n", move_value_float);
     
-    if ((move_value_float >= -0.2) && (move_value_float <= 0.2)) { // Don't move if joystick is idle
+    if ((move_value_float >= -0.5) && (move_value_float <= 0.5)) { // Don't move if joystick is idle
         
-        PWM->PWM_DIS = MOTOR_PWM_DISABLE; // Disable PWM channel 0
+        PWM->PWM_CH_NUM[0].PWM_CDTY = 0; // Set duty cycle to 0%
         return;
     }
 
     bool direction = get_direction(move_value_float);
     set_direction(direction);
-    PWM->PWM_ENA = MOTOR_PWM_ENABLE;
+    PWM->PWM_CH_NUM[0].PWM_CDTY = MOTOR_DUTYCYCLE;
 } 
+
+
 
 bool get_direction(float move_value_float) {
 
     if (move_value_float >= 0){
-        return 0; // left?
+        return 0; // left
     }
     else{
         return 1; // right
@@ -117,9 +129,9 @@ bool get_direction(float move_value_float) {
 
 void set_direction(bool direction){
     if (direction){
-        PIOC->PIO_SODR = MOTOR_DIR_PIN;  // Set PC23 HIGH
+        PIOC->PIO_CODR = MOTOR_DIR_PIN;  // Set Direction Right
     }
     else {
-        PIOC->PIO_CODR = MOTOR_DIR_PIN;  // Set PC23 LOW
+        PIOC->PIO_SODR = MOTOR_DIR_PIN;  // Set Direction Left
     }
 }

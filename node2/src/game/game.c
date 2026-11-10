@@ -14,7 +14,6 @@ void game_loop() {
   Buttons buttons;
 
   time_spinFor(msecs(50));
-  counter += 1;
 
   uint32_t position_counter = TC2->TC_CHANNEL[0].TC_CV;
   printf("Position: %d\r\n", position_counter);
